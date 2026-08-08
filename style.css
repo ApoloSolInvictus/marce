@@ -625,7 +625,7 @@
 	#main { float: left; margin: 0; position: relative; width: 100%; }
 
 	.slider-container { backface-visibility: hidden; margin: 0 0 20px; display: table; float: left; height: 100%;	min-height: 100%; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
-	.slider { background-image:url(images/paintings/client-slot-02-geometric-eyes.jpg); background-repeat: no-repeat; background-position: center center; background-size: cover; backface-visibility: hidden; display: table; float: left; height: 100%; width: 100%; }
+	.slider { background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: cover; backface-visibility: hidden; display: table; float: left; height: 100%; width: 100%; }
 	.slider-container .container, .slider-container .parallax { position: static; }
 
 	.slider::before, .slider::after { border: 1px solid #1c1c1c; bottom: 0; content: ""; left: 0; margin: 15px; position: absolute; right: 0; top: 0;}
