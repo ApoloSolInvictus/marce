@@ -624,11 +624,13 @@
 
 	#main { float: left; margin: 0; position: relative; width: 100%; }
 
-	.slider-container { backface-visibility: hidden; margin: 0 0 20px; display: table; float: left; height: 100%;	min-height: 100%; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
-	.slider { background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: cover; backface-visibility: hidden; display: table; float: left; height: 100%; width: 100%; }
-	.slider-container .container, .slider-container .parallax { position: static; }
+	.slider-container { backface-visibility: hidden; background: #050505; display: block; float: left; height: 78vh; min-height: 580px; max-height: 860px; margin: 0 0 20px; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
+	.slider { background-color: #050505; background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: contain; backface-visibility: hidden; display: block; float: left; height: 100%; overflow: hidden; position: relative; width: 100%; }
+	.slider-container .container { position: static; }
+	.slider-container .parallax { position: relative; }
+	.hero-painting { display: block; height: 100%; left: 0; object-fit: contain; object-position: center center; position: absolute; top: 0; width: 100%; z-index: 1; }
 
-	.slider::before, .slider::after { border: 1px solid #1c1c1c; bottom: 0; content: ""; left: 0; margin: 15px; position: absolute; right: 0; top: 0;}
+	.slider::before, .slider::after { border: 1px solid rgba(255,255,255,0.22); bottom: 0; content: ""; left: 0; margin: 15px; pointer-events: none; position: absolute; right: 0; top: 0; z-index: 2;}
 	.slider::before { margin: 15px; }
 	.slider::after { margin: 10px; }
 
@@ -636,7 +638,9 @@
 
 	.fullwidth-section { clear: both; float: left; margin: 0; padding: 0; width: 100%;}
 
-	.parallax { background-attachment: fixed; background-color: #000000; background-position: center top; background-repeat: no-repeat; padding: 100px 0; margin: 0; color: #ffffff; position: relative;}
+	.parallax { background-attachment: scroll; background-color: #000000; background-position: center top; background-repeat: no-repeat; padding: 100px 0; margin: 0; color: #ffffff; position: relative;}
+
+	.slider.parallax { background-attachment: scroll; background-position: center center; padding: 0; }
 
 	.parallax-img { background: url(images/parallax-img.jpg); background-size: cover; background-attachment: fixed; background-repeat: no-repeat;}
 	.dark-skin .parallax-img { background: url(images/parallax-img-dark.jpg); background-size: cover; background-attachment: fixed; background-repeat: no-repeat;}
@@ -645,8 +649,8 @@
 
 	.slider-container{ display: block\9; /* IE9 only override */}
 
-	@media screen and (-webkit-min-device-pixel-ratio:0) { /* Safari only override */
-	::i-block-chrome, .parallax { position: static;}
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+		.slider.parallax { position: relative; }
 	}
 
 	/*----*****---- << 2.4.1. BREAD-CRUMB >> ----*****----*/
