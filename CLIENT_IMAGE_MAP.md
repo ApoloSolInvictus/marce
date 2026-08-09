@@ -2,6 +2,8 @@
 
 The repo now uses the client paintings uploaded as `images/paintings/1.jpeg` through `images/paintings/40.jpeg`.
 
+- Main site logo: `images/brand/eterna-espressione-logo.png`
+- Artist portrait: `images/artist/marcello-castagna.jpeg`
 - Home hero / slider background: `images/paintings/29.jpeg`
 - Home featured gallery: paintings 1-9
 - Gallery page: paintings 1-9
@@ -11,3 +13,5 @@ The repo now uses the client paintings uploaded as `images/paintings/1.jpeg` thr
 - Blog page and home blog sections: paintings 34-40 plus rotating collection images
 
 To replace a painting later, keep the same numbered filename or update the matching `src`/`href` in the relevant HTML file.
+
+The Google Translate widget is added near the bottom-right of every main HTML page and uses English as the source language.
