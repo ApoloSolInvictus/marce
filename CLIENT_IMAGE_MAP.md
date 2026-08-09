@@ -10,7 +10,8 @@ The repo now uses the client paintings uploaded as `images/paintings/1.jpeg` thr
 - Gallery detail carousel and related work: paintings 10-27
 - Shop grid: paintings 20-34
 - Shop detail: painting 29 with thumbnails 30-35
-- Blog page and home blog sections: paintings 34-40 plus rotating collection images
+- Home blog sliders: square paintings 1, 3, 5, 6, 8, 11, 12, 13, 14, 17, 18, 23, 26, and 34
+- Blog page: paintings 34-40 plus rotating collection images
 
 To replace a painting later, keep the same numbered filename or update the matching `src`/`href` in the relevant HTML file.
 

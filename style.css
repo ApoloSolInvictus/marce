@@ -765,6 +765,13 @@
 	.blog-section .blog-entry .entry-thumb a { display:block; width:100%; margin:0px; padding:0px; line-height:0; }
 	.blog-section .blog-entry .entry-thumb img { width:100%; height:auto; }
 
+	.home-blog-section .blog-section .blog-entry .entry-thumb { aspect-ratio: 1 / 1; background: #050505; overflow: hidden; }
+	.home-blog-section .blog-section .blog-entry .entry-thumb .bx-wrapper,
+	.home-blog-section .blog-section .blog-entry .entry-thumb .bx-viewport,
+	.home-blog-section .blog-section .blog-entry .entry-thumb .blog-slider,
+	.home-blog-section .blog-section .blog-entry .entry-thumb .blog-slider li { height: 100% !important; }
+	.home-blog-section .blog-section .blog-entry .entry-thumb img { height: 100%; object-fit: cover; object-position: center center; width: 100%; }
+
 	.blog-section .blog-entry .entry-details { position: absolute; margin: 0; padding: 0; top: 50%; right: 0%; transform: translate(0%, -50%); -moz-transform: translate(0%, -50%); -webkit-transform: translate(0%, -50%); width: 100%;
 	display: table-cell; vertical-align: middle; float:left; width: 50%; text-align: center; }
 	.blog-section .blog-entry .entry-details .entry-title {  float: left; margin: 0 0 7px 0; padding: 0; width: 100%; }
