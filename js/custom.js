@@ -2,6 +2,82 @@ jQuery.noConflict();
 jQuery(document).ready(function($){
 	
 	"use strict";
+
+	(function(){
+		var $widget = $('.translate-widget');
+		if(!$widget.length) return;
+
+		var labels = {
+			'en': 'English',
+			'es': 'Spanish',
+			'it': 'Italian',
+			'fr': 'French',
+			'de': 'German',
+			'pt': 'Portuguese',
+			'zh-CN': 'Chinese',
+			'ja': 'Japanese',
+			'ko': 'Korean',
+			'ar': 'Arabic',
+			'hi': 'Hindi',
+			'ru': 'Russian'
+		};
+
+		function writeTranslateCookie(lang) {
+			var value = '/en/' + lang;
+			var host = window.location.hostname.replace(/^www\./, '');
+			document.cookie = 'googtrans=' + value + ';path=/';
+			if(host.indexOf('.') > -1) {
+				document.cookie = 'googtrans=' + value + ';path=/;domain=.' + host;
+			}
+		}
+
+		function changeGoogleLanguage(lang, attempt) {
+			var combo = document.querySelector('.goog-te-combo');
+			if(combo) {
+				combo.value = lang;
+				var event = document.createEvent('HTMLEvents');
+				event.initEvent('change', true, true);
+				combo.dispatchEvent(event);
+				return;
+			}
+
+			if(attempt < 20) {
+				window.setTimeout(function(){
+					changeGoogleLanguage(lang, attempt + 1);
+				}, 150);
+			} else {
+				window.location.reload();
+			}
+		}
+
+		$widget.find('.translate-toggle').on('click', function(event){
+			event.preventDefault();
+			var $button = $(this);
+			var $panel = $widget.find('.translate-panel');
+			var isOpen = $button.attr('aria-expanded') === 'true';
+			$button.attr('aria-expanded', !isOpen);
+			$panel.prop('hidden', isOpen);
+		});
+
+		$widget.find('.translate-option').on('click', function(event){
+			event.preventDefault();
+			var lang = $(this).data('lang');
+			if(!lang) return;
+
+			$widget.find('.translate-current').text(labels[lang] || 'Translate');
+			$widget.find('.translate-toggle').attr('aria-expanded', 'false');
+			$widget.find('.translate-panel').prop('hidden', true);
+			writeTranslateCookie(lang);
+			changeGoogleLanguage(lang, 0);
+		});
+
+		$(document).on('click', function(event){
+			if(!$(event.target).closest('.translate-widget').length) {
+				$widget.find('.translate-toggle').attr('aria-expanded', 'false');
+				$widget.find('.translate-panel').prop('hidden', true);
+			}
+		});
+	})();
 	
 		Pace.on("done", function(){
 			$(".loader-wrapper").fadeOut(500);

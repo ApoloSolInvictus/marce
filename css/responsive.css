@@ -16,7 +16,7 @@
 	
 	.logo { margin: 0; width: auto; max-width: 270px; }
 	.logo a img { max-height: 58px; width: auto; }
-	.slider-container { height: 72vh; min-height: 520px; max-height: 760px; }
+	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
 	.header-animate .logo { padding: 12px 0;}
 	.header-animate #main-menu ul li { padding: 14px 0; }		
 	#main-menu a { margin: 0 10px; padding: 10px 0; }
@@ -204,7 +204,7 @@
 	
 	.logo { margin: 0; width: auto; max-width: 240px; }
 	.logo a img { max-height: 52px; width: auto; }
-	.slider-container { height: 68vh; min-height: 470px; max-height: 660px; }
+	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
 	.header-animate .logo { padding: 12px 0;}
 	.header-animate #main-menu ul li { padding: 12px 0; }		
 	#main-menu a { margin: 0 10px; padding: 10px 0; }
@@ -459,7 +459,7 @@
 		
 	.logo { width: 100%; max-width: 100%; text-align:center; padding: 10px 0;}
 	.logo a img { max-height: 62px; width: auto; }
-	.slider-container { height: 64vh; min-height: 380px; max-height: 560px; }
+	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
 	#main-menu { display: inline-block; float: none; padding: 10px 0; width: 100%; position:relative; }
 	
 	#main-menu { perspective: none; transform: translateY(0px); transition: transform 0.5s ease 0s, visibility 0.5s ease 0s; visibility: visible;}

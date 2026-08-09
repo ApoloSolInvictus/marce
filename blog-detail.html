@@ -373,15 +373,32 @@
 
 	<script src="js/custom.js"></script>
 
-
     <div class="translate-widget" aria-label="Language selector">
-        <span class="translate-label">Translate</span>
-        <div id="google_translate_element"></div>
+        <button class="translate-toggle" type="button" aria-expanded="false">
+            <span class="translate-icon">A</span>
+            <span class="translate-current">Translate</span>
+        </button>
+        <div class="translate-panel" hidden>
+            <button type="button" class="translate-option" data-lang="en">English</button>
+            <button type="button" class="translate-option" data-lang="es">Spanish</button>
+            <button type="button" class="translate-option" data-lang="it">Italian</button>
+            <button type="button" class="translate-option" data-lang="fr">French</button>
+            <button type="button" class="translate-option" data-lang="de">German</button>
+            <button type="button" class="translate-option" data-lang="pt">Portuguese</button>
+            <button type="button" class="translate-option" data-lang="zh-CN">Chinese</button>
+            <button type="button" class="translate-option" data-lang="ja">Japanese</button>
+            <button type="button" class="translate-option" data-lang="ko">Korean</button>
+            <button type="button" class="translate-option" data-lang="ar">Arabic</button>
+            <button type="button" class="translate-option" data-lang="hi">Hindi</button>
+            <button type="button" class="translate-option" data-lang="ru">Russian</button>
+        </div>
+        <div id="google_translate_element" class="google-translate-anchor"></div>
     </div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
+                includedLanguages: 'en,es,it,fr,de,pt,zh-CN,ja,ko,ar,hi,ru',
                 autoDisplay: false
             }, 'google_translate_element');
         }

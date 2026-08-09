@@ -624,11 +624,13 @@
 
 	#main { float: left; margin: 0; position: relative; width: 100%; }
 
-	.slider-container { backface-visibility: hidden; background: #050505; display: block; float: left; height: 78vh; min-height: 580px; max-height: 860px; margin: 0 0 20px; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
-	.slider { background-color: #050505; background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: contain; backface-visibility: hidden; display: block; float: left; height: 100%; overflow: hidden; position: relative; width: 100%; }
+	.slider-container { aspect-ratio: 1600 / 1128; backface-visibility: hidden; background: #050505; display: block; float: left; height: auto; margin: 0 0 20px; max-height: none; min-height: 0; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
+	.slider { aspect-ratio: inherit; background-color: #050505; background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; backface-visibility: hidden; display: block; float: left; height: auto; overflow: hidden; position: relative; width: 100%; }
 	.slider-container .container { position: static; }
 	.slider-container .parallax { position: relative; }
-	.hero-painting { display: block; height: 100%; left: 0; object-fit: contain; object-position: center center; position: absolute; top: 0; width: 100%; z-index: 1; }
+	.hero-painting { display: block; height: auto; object-fit: contain; object-position: center center; position: relative; width: 100%; z-index: 1; }
+
+	.is-apple-device .slider-container, .is-apple-device .slider { transform: translateZ(0); }
 
 	.slider::before, .slider::after { border: 1px solid rgba(255,255,255,0.22); bottom: 0; content: ""; left: 0; margin: 15px; pointer-events: none; position: absolute; right: 0; top: 0; z-index: 2;}
 	.slider::before { margin: 15px; }
@@ -935,15 +937,21 @@
 	.artist-quote { font-size: 24px; line-height: 1.4; margin-top: 10px; }
 	.artist-quote span { display: block; }
 
-	.translate-widget { background: rgba(20, 20, 20, 0.94); border: 1px solid rgba(255,255,255,0.18); bottom: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff; padding: 10px 12px; position: fixed; right: 20px; z-index: 99999; }
-	.translate-widget .translate-label { color: #fff; display: block; font-family: 'PT Sans Narrow', sans-serif; font-size: 12px; letter-spacing: 1px; line-height: 1; margin-bottom: 6px; text-transform: uppercase; }
-	.translate-widget select { max-width: 190px; }
-	body > .skiptranslate { display: none; }
+	.translate-widget { bottom: 20px; color: #fff; left: 20px; position: fixed; z-index: 99999; }
+	.translate-toggle { background: rgba(20, 20, 20, 0.96); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-family: 'PT Sans Narrow', sans-serif; font-size: 14px; letter-spacing: 1px; line-height: 1; min-height: 42px; padding: 0 14px; text-transform: uppercase; }
+	.translate-icon { border: 1px solid rgba(255,255,255,0.45); display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 12px; height: 20px; line-height: 18px; text-align: center; width: 20px; }
+	.translate-panel { background: rgba(20, 20, 20, 0.98); border: 1px solid rgba(255,255,255,0.18); bottom: 52px; box-shadow: 0 10px 28px rgba(0,0,0,0.32); display: grid; grid-template-columns: 1fr 1fr; left: 0; min-width: 260px; padding: 8px; position: absolute; }
+	.translate-panel[hidden] { display: none; }
+	.translate-option { background: transparent; border: 0; color: #fff; cursor: pointer; font-family: 'PT Sans Narrow', sans-serif; font-size: 14px; line-height: 1; padding: 10px 12px; text-align: left; }
+	.translate-option:hover, .translate-option:focus { background: #a81c51; outline: none; }
+	.google-translate-anchor { height: 1px; opacity: 0; overflow: hidden; pointer-events: none; position: absolute; width: 1px; }
+	.goog-te-gadget { height: 1px; overflow: hidden; }
+	body > .skiptranslate, .goog-te-banner-frame { display: none !important; }
 	body { top: 0 !important; }
 
 	@media only screen and (max-width: 767px) {
-		.translate-widget { bottom: 12px; left: 12px; right: 12px; }
-		.translate-widget select { width: 100%; max-width: 100%; }
+		.translate-widget { bottom: 12px; left: 12px; right: auto; }
+		.translate-panel { min-width: 236px; grid-template-columns: 1fr; max-height: 300px; overflow-y: auto; }
 	}
 
 	.mailchimp-form, #commentform, .enquiry-form { position:relative; margin-top:5px; float:left; width: 100%;}
