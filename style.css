@@ -629,6 +629,7 @@
 	.slider-container .container { position: static; }
 	.slider-container .parallax { position: relative; }
 	.hero-painting { display: block; height: auto; object-fit: contain; object-position: center center; position: relative; width: 100%; z-index: 1; }
+	.hero-gallery-logo { height: auto; left: 50%; max-width: calc(100% - 40px); pointer-events: none; position: absolute; top: 50%; transform: translate(-50%, -50%); width: clamp(300px, 50vw, 780px); z-index: 3; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.75)); }
 
 	.is-apple-device .slider-container, .is-apple-device .slider { transform: translateZ(0); }
 
