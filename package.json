@@ -1,0 +1,10 @@
+{
+  "name": "eterna-espressione-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vercel function scaffolding for Eterna Espressione checkout, Firebase accounts, and order automation.",
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "stripe": "^17.5.0"
+  }
+}

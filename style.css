@@ -944,6 +944,23 @@
 	.artist-quote { font-size: 24px; line-height: 1.4; margin-top: 10px; }
 	.artist-quote span { display: block; }
 
+	.account-dashboard { float: left; width: 100%; }
+	.account-panel { border: 1px solid #2b2b2b; box-sizing: border-box; float: left; margin-bottom: 30px; padding: 30px; width: 100%; }
+	.account-panel h4 { margin-bottom: 25px; }
+	.account-status { background: #111; border-left: 4px solid #a81c51; color: #fff; padding: 12px 14px; }
+	.account-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+	.account-actions .dt-sc-button { border: 0; cursor: pointer; }
+	.order-progress-row { float: left; margin-bottom: 22px; width: 100%; }
+	.order-progress-row > span { display: block; font-family: 'Josefin Sans', sans-serif; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; }
+	.order-progress .dt-sc-progress { margin-bottom: 0; }
+	.order-progress .dt-sc-bar-text { white-space: nowrap; }
+	.account-wide-panel { clear: both; }
+	.account-order-summary { align-items: center; display: flex; gap: 25px; }
+	.account-order-summary img { height: 160px; object-fit: cover; width: 220px; }
+	.payment-method-grid { display: grid; gap: 12px; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 20px 0 30px; }
+	.payment-method-card { border: 1px solid #2b2b2b; box-sizing: border-box; padding: 18px 10px; text-align: center; text-transform: uppercase; }
+	.payment-method-card .fa { display: block; font-size: 28px; margin-bottom: 8px; }
+
 	.translate-widget { bottom: 20px; color: #fff; left: 20px; position: fixed; z-index: 99999; }
 	.translate-toggle { background: rgba(20, 20, 20, 0.96); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.25); color: #fff; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-family: 'PT Sans Narrow', sans-serif; font-size: 14px; letter-spacing: 1px; line-height: 1; min-height: 42px; padding: 0 14px; text-transform: uppercase; }
 	.translate-icon { border: 1px solid rgba(255,255,255,0.45); display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 12px; height: 20px; line-height: 18px; text-align: center; width: 20px; }
@@ -959,6 +976,9 @@
 	@media only screen and (max-width: 767px) {
 		.translate-widget { bottom: 12px; left: 12px; right: auto; }
 		.translate-panel { min-width: 236px; grid-template-columns: 1fr; max-height: 300px; overflow-y: auto; }
+		.account-order-summary { align-items: flex-start; flex-direction: column; }
+		.account-order-summary img { height: auto; width: 100%; }
+		.payment-method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	}
 
 	.mailchimp-form, #commentform, .enquiry-form { position:relative; margin-top:5px; float:left; width: 100%;}

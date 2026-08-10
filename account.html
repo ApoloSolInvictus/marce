@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Eterna Espressione - Marcello Castagna</title>
+	<title>Customer Account - Eterna Espressione</title>
 
     <meta name="description" content="">
 	<meta name="author" content="">
@@ -74,7 +74,7 @@
                             </ul>
                             <a class="dt-menu-expand">+</a>
                         </li>
-                        <li class="current_page_item menu-item-simple-parent">
+                        <li class="menu-item-simple-parent">
                             <a href="about.html">About us</a>
                         </li>
                         <li class="menu-item-simple-parent"><a href="gallery.html">Gallery</a>
@@ -90,7 +90,7 @@
                                 <li><a href="shop-detail.html">Shop Detail</a></li>
                                 <li><a href="shop-cart.html">Cart Page</a></li>
                                 <li><a href="shop-checkout.html">Checkout Page</a></li>
-                                <li><a href="account.html">Customer Account</a></li>
+                                <li class="current_page_item"><a href="account.html">Customer Account</a></li>
                             </ul>
                             <a class="dt-menu-expand">+</a>
                         </li>
@@ -111,72 +111,86 @@
           </header>
         </div>  <!-- **header-wrapper Ends** -->
         <div id="main">
-			<section id="primary" class="content-full-width"> <!-- **Primary Starts Here** -->
+            <section id="primary" class="content-full-width">
                 <div class="container">
-					<div class="dt-sc-hr-invisible-small"></div>
-	<div class="main-title animate" data-animation="pullDown" data-delay="100">
-                        <h3> Welcome to Eterna Espressione - Art Gallery </h3>
-                        <p>Artistic expression that transcends time.</p>
+                    <div class="dt-sc-hr-invisible-small"></div>
+                    <div class="main-title animate" data-animation="pullDown" data-delay="100">
+                        <h3> Customer Account </h3>
+                        <p>Sign in, review purchases, and follow each artwork order from request to delivery.</p>
                     </div>
-                    <div class="dt-sc-service-content">
-	<p>My name is Marcello Castagna. By day, I am an Italian chef. My passion is creating emotions through cuisine, transforming simple ingredients into experiences to be shared.</p>
-                    </div>
-                    <div class="dt-sc-hr-invisible"></div>
-                    <div class="service-grid">
-                        <div class="dt-sc-one-half column first animate" data-animation="fadeInDown" data-delay="100">
-	<img class="artist-photo" src="images/artist/marcello-castagna.jpeg" alt="Marcello Castagna portrait" title="Marcello Castagna">
-                        </div>
-                        <div class="dt-sc-one-half column">
-	<div class="dt-sc-icon-content-wrapper"><!-- *dt-sc-icon-content-wrapper Starts here** -->
-                                <div class="dt-sc-one-half column first">
-                                    <div class="dt-sc-ico-content animate" data-animation="fadeInRight" data-delay="100">
-                                        <h6>About the Artist</h6>
-                                        <p><span>Name:</span>Marcello Castagna</p>
-                                        <p><span>Gallery:</span>Eterna Espressione</p>
-                                        <p><span>Practice:</span>Abstract painting and mixed media</p>
-                                        <div class="dt-sc-hr-invisible-very-small"></div>
-                                        <p>When the kitchen quiets down and silence falls, another part of me lights up.</p>
-                                    </div>
-                                </div>
-                                <div class="dt-sc-one-half column dt-sc-icon-wrapper">
-                                    <div class="dt-sc-icon"><i class="fa fa-user-secret animate" data-animation="fadeInLeft" data-delay="100"></i></div>
-                                </div>
-                            </div><!-- *dt-sc-icon-content-wrapper Ends here** -->
-                        </div>
-                        <div class="dt-sc-one-half column">
-	<div class="dt-sc-icon-content-wrapper left"><!-- *dt-sc-icon-content-wrapper Starts here** -->
-                                <div class="dt-sc-one-half column first dt-sc-icon-wrapper">
-                                    <div class="dt-sc-icon"><i class="fa fa-paint-brush animate" data-animation="fadeInRight" data-delay="100"></i></div>
-                                </div>
-                                <div class="dt-sc-one-half column">
-                                    <div class="dt-sc-ico-content animate" data-animation="fadeInLeft" data-delay="100">
-                                        <h6>Eterna Espressione</h6>
-                                        <p>That is when colors take the place of flavors, brushes replace utensils, and the canvas becomes the place where thoughts, emotions, and freedom take shape.</p>
-                                        <p>This is how Eterna Espressione was born.</p>
-                                    </div>
-                                </div>
-                            </div><!-- *dt-sc-icon-content-wrapper Ends here** -->
-                        </div>
-                        <div class="dt-sc-one-half column">
-	<div class="dt-sc-icon-content-wrapper"><!-- *dt-sc-icon-content-wrapper Starts here** -->
-                                <div class="dt-sc-one-half column first">
-                                    <div class="dt-sc-ico-content animate" data-animation="fadeInRight" data-delay="100">
-                                        <h6>The Gallery</h6>
-                                        <p>A gallery where every work tells a fragment of my inner world, and where I hope each person can rediscover something of themselves.</p>
-                                        <div class="dt-sc-hr-invisible-very-small"></div>
-                                        <p>Thank you. Welcome to Eterna Espressione.</p>
-                                        <p class="artist-quote"><span>"By day I nourish the body.</span><span>By night I nourish the soul."</span></p>
-                                    </div>
-                                </div>
-                                <div class="dt-sc-one-half column dt-sc-icon-wrapper">
-                                    <div class="dt-sc-icon"><i class="fa fa-whatsapp animate" data-animation="fadeInLeft" data-delay="100"></i></div>
-                                </div>
-                            </div><!-- *dt-sc-icon-content-wrapper Ends here** -->
-                        </div>
-                    </div>
-                </div>
-            </section><!-- **Primary Ends Here** -->
 
+                    <div class="account-dashboard">
+                        <div class="dt-sc-one-half column first">
+                            <div class="account-panel">
+                                <h4>Sign In</h4>
+                                <p class="account-status" id="account-status">Firebase account access is ready for project credentials.</p>
+                                <form id="customer-login-form" class="customer-auth-form" action="#" method="post">
+                                    <p class="input-text">
+                                        <input class="input-field" type="email" id="customer-email" name="customer_email" required />
+                                        <label class="input-label" for="customer-email">
+                                            <i class="fa fa-envelope-o icon"></i>
+                                            <span class="input-label-content">Email</span>
+                                        </label>
+                                    </p>
+                                    <p class="input-text">
+                                        <input class="input-field" type="password" id="customer-password" name="customer_password" required />
+                                        <label class="input-label" for="customer-password">
+                                            <i class="fa fa-lock icon"></i>
+                                            <span class="input-label-content">Password</span>
+                                        </label>
+                                    </p>
+                                    <div class="account-actions">
+                                        <button class="dt-sc-button type1" type="submit" data-auth-action="login">Login</button>
+                                        <button class="dt-sc-button type2" type="button" data-auth-action="register">Create Account</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="dt-sc-one-half column">
+                            <div class="account-panel">
+                                <h4>Order Timeline</h4>
+                                <div class="order-progress" data-order-status="account">
+                                    <div class="order-progress-row">
+                                        <span>Order Request</span>
+                                        <div class="dt-sc-progress dt-sc-progress-striped dt-sc-violet"><div class="dt-sc-bar" style="width:100%"><div class="dt-sc-bar-text"> Started <span>100%</span></div></div></div>
+                                    </div>
+                                    <div class="order-progress-row">
+                                        <span>Payment</span>
+                                        <div class="dt-sc-progress dt-sc-progress-striped dt-sc-yellow"><div class="dt-sc-bar" style="width:65%"><div class="dt-sc-bar-text"> Checkout <span>65%</span></div></div></div>
+                                    </div>
+                                    <div class="order-progress-row">
+                                        <span>Customer Account</span>
+                                        <div class="dt-sc-progress dt-sc-progress-striped dt-sc-maroon"><div class="dt-sc-bar" style="width:50%"><div class="dt-sc-bar-text"> Profile <span>50%</span></div></div></div>
+                                    </div>
+                                    <div class="order-progress-row">
+                                        <span>Shipping</span>
+                                        <div class="dt-sc-progress dt-sc-progress-striped dt-sc-red"><div class="dt-sc-bar" style="width:20%"><div class="dt-sc-bar-text"> Preparing <span>20%</span></div></div></div>
+                                    </div>
+                                    <div class="order-progress-row">
+                                        <span>Delivered</span>
+                                        <div class="dt-sc-progress dt-sc-progress-striped dt-sc-orange"><div class="dt-sc-bar" style="width:0%"><div class="dt-sc-bar-text"> Pending <span>0%</span></div></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dt-sc-hr-invisible-small"></div>
+                    <div class="account-panel account-wide-panel">
+                        <h4>Recent Purchase</h4>
+                        <div class="account-order-summary">
+                            <img src="images/paintings/29.jpeg" alt="Featured Marcello Castagna artwork order">
+                            <div>
+                                <h5>Eterna Espressione Original Artwork</h5>
+                                <p>Order status, payment confirmation, shipping updates, and delivery completion will be saved to the customer profile once Firebase and the payment provider are connected.</p>
+                                <a class="dt-sc-button small type1" href="shop-checkout.html">Continue Checkout<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-invisible-small"></div>
+                </div>
+            </section>
             <footer id="footer" class="animate" data-animation="fadeIn" data-delay="100">
                 <div class="container">
                     <div class="copyright">
@@ -193,7 +207,7 @@
                             <li><a href="#" class="fa fa-cc-discover"></a></li>
                             <li><a href="#" class="fa fa-cc-paypal"></a></li>
                         </ul>
-                        <p>© 2015 <a href="#">RED ART</a>. All rights reserved.</p>
+                        <p>? 2026 <a href="#">Eterna Espressione</a>. All rights reserved.</p>
                     </div>
                 </div>
             </footer>
@@ -209,6 +223,7 @@
 
 
 	<script src="js/custom.js"></script>
+    <script src="js/customer-account.js"></script>
 
     <div class="translate-widget" aria-label="Language selector">
         <button class="translate-toggle" type="button" aria-expanded="false">

@@ -54,8 +54,8 @@
                   <div class="basket-top">
                     <a class="show fa fa-shopping-cart" href="#"></a>
                     <div class="shop-links" style="display: none;">
-                        <a href="#">My Account</a>
-                        <a href="#">Checkout</a>
+                        <a href="account.html">My Account</a>
+                        <a href="shop-checkout.html">Checkout</a>
                         <a href="#">Shopping Bag: 0 items $0.00</a>
                     </div>
                   </div>
@@ -90,6 +90,7 @@
                                 <li><a href="shop-detail.html">Shop Detail</a></li>
                                 <li><a href="shop-cart.html">Cart Page</a></li>
                                 <li class="current_page_item"><a href="shop-checkout.html">Checkout Page</a></li>
+                                <li><a href="account.html">Customer Account</a></li>
                             </ul>
                             <a class="dt-menu-expand">+</a>
                         </li>
@@ -104,17 +105,6 @@
                         <li class="menu-item-simple-parent">
                             <a href="contact.html">contact</a>
                         </li>
-                        <li class="menu-item-simple-parent">
-                            <a href="progressbar.html">shortcodes</a>
-                            <ul class="sub-menu">
-                                <li><a href="progressbar.html"> Progress-bar </a></li>
-                                <li><a href="buttons.html"> Buttons Page </a></li>
-                                <li><a href="tabs.html"> tabs &amp; accordions </a></li>
-                                <li><a href="typography.html"> typography </a></li>
-                                <li><a href="columns.html"> columns </a></li>
-                            </ul>
-                            <a class="dt-menu-expand">+</a>
-                        </li>
                       </ul> <!-- Menu Ends -->
                   </nav>
               </div>
@@ -126,6 +116,27 @@
 	<div class="dt-sc-hr-invisible-small"></div>
                     <!-- **woocommerce - Starts** -->
                     <div class="woocommerce">
+                        <div class="account-panel account-wide-panel">
+                            <h4>Purchase Progress</h4>
+                            <div class="order-progress" data-order-status="checkout">
+                                <div class="order-progress-row">
+                                    <span>Order Request</span>
+                                    <div class="dt-sc-progress dt-sc-progress-striped dt-sc-violet"><div class="dt-sc-bar" style="width:100%"><div class="dt-sc-bar-text"> Started <span>100%</span></div></div></div>
+                                </div>
+                                <div class="order-progress-row">
+                                    <span>Customer Account</span>
+                                    <div class="dt-sc-progress dt-sc-progress-striped dt-sc-yellow"><div class="dt-sc-bar" style="width:60%"><div class="dt-sc-bar-text"> Details <span>60%</span></div></div></div>
+                                </div>
+                                <div class="order-progress-row">
+                                    <span>Payment</span>
+                                    <div class="dt-sc-progress dt-sc-progress-striped dt-sc-maroon"><div class="dt-sc-bar" style="width:40%"><div class="dt-sc-bar-text"> Ready <span>40%</span></div></div></div>
+                                </div>
+                                <div class="order-progress-row">
+                                    <span>Shipping</span>
+                                    <div class="dt-sc-progress dt-sc-progress-striped dt-sc-red"><div class="dt-sc-bar" style="width:0%"><div class="dt-sc-bar-text"> Pending <span>0%</span></div></div></div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- **checkout - Starts** -->
                         <form name="checkout" method="post" class="checkout" action="#">
@@ -315,6 +326,13 @@
 
                             <div class="dt-sc-margin50"></div>
                             <h3 id="order_review_heading">Order Review &amp; Payment</h3>
+                            <div class="payment-method-grid">
+                                <div class="payment-method-card"><i class="fa fa-cc-amex"></i>American Express</div>
+                                <div class="payment-method-card"><i class="fa fa-cc-mastercard"></i>MasterCard</div>
+                                <div class="payment-method-card"><i class="fa fa-cc-visa"></i>Visa</div>
+                                <div class="payment-method-card"><i class="fa fa-cc-discover"></i>Discover</div>
+                                <div class="payment-method-card"><i class="fa fa-cc-paypal"></i>PayPal</div>
+                            </div>
                             <div id="order_review">
                                 <table class="shop_table cart">
                                     <thead>
@@ -431,20 +449,15 @@
                                 <!-- **payment - Starts** -->
                                 <div id="payment">
                                     <ul class="payment_methods methods">
-                                        <li class="payment_method_bacs">
-                                            <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs"  checked='checked' data-order_button_text="" />
-                                            <label for="payment_method_bacs"><span></span>Direct Bank Transfer </label>
-                                            <div class="payment_box payment_method_bacs" ><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won&#8217;t be shipped until the funds have cleared in our account.</p> </div>
-                                        </li>
-                                        <li class="payment_method_cheque">
-                                            <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque"  data-order_button_text="" />
-                                            <label for="payment_method_cheque"><span></span>Cheque Payment </label>
-                                            <div class="payment_box payment_method_cheque" style="display:none;"><p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p> </div>
+                                        <li class="payment_method_card">
+                                            <input id="payment_method_card" type="radio" class="input-radio" name="payment_method" value="card" checked='checked' data-order_button_text="Pay securely" />
+                                            <label for="payment_method_card"><span></span>Credit or Debit Card</label>
+                                            <div class="payment_box payment_method_card"><p>American Express, MasterCard, Visa, and Discover should be processed through a secure hosted checkout on Vercel so card details never touch this static page.</p> </div>
                                         </li>
                                         <li class="payment_method_paypal">
                                             <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal"  data-order_button_text="Proceed to PayPal" />
                                             <label for="payment_method_paypal"><span></span>PayPal <img src="images/paypal.png" alt="PayPal" /></label>
-                                            <div class="payment_box payment_method_paypal" style="display:none;"><p>Pay via PayPal; you can pay with your credit card if you don&#8217;t have a PayPal account</p> </div>
+                                            <div class="payment_box payment_method_paypal" style="display:none;"><p>PayPal can be connected as its own checkout option or offered through a supported payment provider.</p> </div>
                                         </li>
                                     </ul>
 
@@ -452,7 +465,7 @@
 
                                         <noscript>Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.<br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="Update totals" /></noscript>
                                         <input type="hidden" name="_wpnonce" value="127d0e67e3" /><input type="hidden" name="_wp_http_referer" value="" />
-                                        <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order" />
+                                        <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Continue to secure payment" data-value="Continue to secure payment" />
 
                                     </div>
 
