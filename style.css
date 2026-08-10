@@ -950,6 +950,10 @@
 	.account-status { background: #111; border-left: 4px solid #a81c51; color: #fff; padding: 12px 14px; }
 	.account-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
 	.account-actions .dt-sc-button { border: 0; cursor: pointer; }
+	.cart-empty-row td { color: #cccccc; font-size: 15px; text-align: center; }
+	.cart-added { background-color: #2c3e50; }
+	.checkout-status { color: #cccccc; float: left; margin: 12px 0 0; text-align: left; width: 100%; }
+	.checkout-status-error { color: #fb7f88; }
 	.order-progress-row { float: left; margin-bottom: 22px; width: 100%; }
 	.order-progress-row > span { display: block; font-family: 'Josefin Sans', sans-serif; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; }
 	.order-progress .dt-sc-progress { margin-bottom: 0; }

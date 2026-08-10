@@ -182,7 +182,10 @@
 
                                         </div> <!-- **login - Ends** -->
 
-                                        <p class="form-row form-row-wide address-field update_totals_on_change validate-required" id="billing_country_field">
+                                        <p class="form-row form-row-wide address-field validate-required" id="billing_country_field">
+                                            <label for="billing_country" class="">Country *</label>
+                                            <input type="text" class="input-text" name="billing_country" id="billing_country" placeholder="Country" value="" />
+                                        </p>
 
                                         <p class="form-row form-row-first validate-required" id="billing_first_name_field">
                                         <label for="billing_first_name" class="">First Name *</label>
@@ -195,7 +198,7 @@
 
                                         <p class="form-row form-row-wide" id="billing_company_field">
                                         <label for="billing_company" class="">Company Name</label>
-                                        <input type="text" class="input-text " name="billing_company" id="billing_company" placeholder=""  value="" required="" /></p>
+                                        <input type="text" class="input-text " name="billing_company" id="billing_company" placeholder=""  value="" /></p>
 
                                         <p class="form-row form-row-wide address-field validate-required" id="billing_address_1_field">
                                         <label for="billing_address_1" class="">Address1</label>
@@ -205,23 +208,14 @@
                                         <label for="billing_address_2" class="">Address2</label>
                                         <input type="text" class="input-text " name="billing_address_2" id="billing_address_2" placeholder="Apartment Name, No.. etc."  value=""  /></p>
 
-                                        <div class="form-row form-row-wide address-field validate-required">
-                                            <label>State </label>
-                                            <div class="selection-box">
-                                                <select name="billing_city" class="shop-dropdown" >
-                                                    <option value="-1" selected>-- Select State --</option>
-                                                    <option value="AN" class="fa fa-car">Andhra</option>
-                                                    <option value="TN" class="fa fa-bus">Tamil Nadu</option>
-                                                    <option value="KL" class="fa fa-motorcycle">Kerala</option>
-                                                    <option value="KN" class="fa fa-train">Karnataka</option>
-                                                    <option value="PB" class="fa fa-truck">Punjab</option>
-                                                </select>
-                                            </div>
-                                            <noscript><input type="submit" name="woocommerce_checkout_update_totals" value="Update country" /></noscript></div>
+                                        <p class="form-row form-row-wide address-field validate-required" id="billing_city_field">
+                                            <label for="billing_city" class="">Town / City *</label>
+                                            <input type="text" class="input-text" name="billing_city" id="billing_city" placeholder="Town / City" value="" />
+                                        </p>
 
                                         <p class="form-row form-row-first address-field validate-state" id="billing_state_field">
-                                            <label>Town / City *</label>
-                                            <input type="text" class="input-text " value="" placeholder="Town / City" name="billing_state"/></p>
+                                            <label for="billing_state">State / Province *</label>
+                                            <input type="text" class="input-text " value="" placeholder="State / Province" name="billing_state" id="billing_state"/></p>
 
                                         <p class="form-row form-row-last address-field validate-required validate-postcode" id="billing_postcode_field">
                                             <label for="billing_postcode" class="">Postcode *</label>
@@ -262,20 +256,9 @@
                                         <!-- **shipping-address - Starts** -->
                                         <div class="shipping_address">
 
-                                            <div class="form-row form-row-wide address-field update_totals_on_change validate-required" id="shipping_country_field">
+                                            <div class="form-row form-row-wide address-field validate-required" id="shipping_country_field">
                                                 <label for="shipping_country" class="">Country *</label>
-                                                <div class="selection-box">
-                                                    <select name="shipping_country" id="shipping_country" class="shop-dropdown" >
-                                                        <option value="-1" selected>Select a country&hellip;</option>
-                                                        <option value="AL" class="fa fa-tree">Alaska</option>
-                                                        <option value="AF" class="fa fa-train">Afghanistan</option>
-                                                        <option value="AL" class="fa fa-plane">Albania</option>
-                                                        <option value="DZ" class="fa fa-subway">Algeria</option>
-                                                        <option value="AQ" class="fa fa-ship">Antarctica</option>
-                                                    </select>
-                                                </div>
-
-                                                <noscript><input type="submit" name="woocommerce_checkout_update_totals" value="Update country" /></noscript>
+                                                <input type="text" class="input-text" name="shipping_country" id="shipping_country" placeholder="Country" value="" />
                                             </div>
 
                                             <p class="form-row form-row-first validate-required" id="shipping_first_name_field">
@@ -301,11 +284,11 @@
                                             </p>
 
                                             <p class="form-row form-row-wide address-field validate-state" id="shipping_state_field">
-	<label for="shipping_state" class="">County </label><input type="text" class="input-text " name=" shipping_state" placeholder="State / County"  value="" id="shipping_state"  />
+	<label for="shipping_state" class="">State / Province</label><input type="text" class="input-text " name="shipping_state" placeholder="State / Province"  value="" id="shipping_state"  />
                                             </p>
 
                                             <p class="form-row form-row-first address-field validate-required" id="shipping_city_field">
-	<label>Town / City *</label><input type="text" class="input-text " value=""  placeholder="Town / City" name="shipping_state" />
+	<label for="shipping_city">Town / City *</label><input type="text" class="input-text " value=""  placeholder="Town / City" name="shipping_city" id="shipping_city" />
 											</p>
 
                                             <p class="form-row form-row-last address-field validate-required validate-postcode" id="shipping_postcode_field">
@@ -342,74 +325,12 @@
                                             <th class="product-price">Price</th>
                                             <th class="product-quantity">Quantity</th>
                                             <th class="product-subtotal">Total</th>
+                                            <th class="product-remove">Remove</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        <tr class = "cart_table_item">
-
-                                            <!-- The thumbnail -->
-                                            <td class="product-thumbnail">
-                                                <a href="shop-detail.html"><img src="images/paintings/25.jpeg" class="attachment-shop_thumbnail wp-post-image" alt="T_7_front" /></a>
-                                            </td>
-
-                                            <!-- Product Name -->
-                                            <td class="product-name">
-                                                <h6><a href="shop-detail.html">Secret To Creativity</a></h6>
-                                            </td>
-
-                                            <!-- Product price -->
-                                            <td class="product-price">
-                                                <span class="amount"><i class="fa fa-gbp"></i> 150</span>
-                                            </td>
-
-                                            <!-- Quantity inputs -->
-                                            <td class="product-quantity">
-                                                <div class="quantity">
-                                                    <input type="button" class="minus" value="-"/>
-                                                    <input type="number" name="quantity" step="1" value="1" min="1" title="Qty" class="input-text qty text" />
-                                                    <input type="button" class="plus" value="+"/>
-                                                </div>
-                                            </td>
-
-                                            <!-- Product subtotal -->
-                                            <td class="product-subtotal">
-                                                <span class="amount"><i class="fa fa-gbp"></i> 150</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr class = "cart_table_item">
-
-                                            <!-- The thumbnail -->
-                                            <td class="product-thumbnail">
-                                                <a href="shop-detail.html"><img src="images/paintings/26.jpeg" class="attachment-shop_thumbnail wp-post-image" alt="T_7_front" /></a>
-                                            </td>
-
-                                            <!-- Product Name -->
-                                            <td class="product-name">
-                                                <h6><a href="shop-detail.html">Lonely in Rain</a></h6>
-                                            </td>
-
-                                            <!-- Product price -->
-                                            <td class="product-price">
-                                                <span class="amount"><i class="fa fa-gbp"></i> 175</span>
-                                            </td>
-
-                                            <!-- Quantity inputs -->
-                                            <td class="product-quantity">
-
-                                                <div class="quantity">
-                                                    <input type="button" class="minus" value="-" />
-                                                    <input type="number" name="quantity" step="1" value="1" min="1" title="Qty" class="input-text qty text" />
-                                                    <input type="button" class="plus" value="+" />
-                                                </div>
-                                            </td>
-
-                                            <!-- Product subtotal -->
-                                            <td class="product-subtotal">
-                                                <span class="amount"><i class="fa fa-gbp"></i> 175</span>
-                                            </td>
-
+                                        <tr class="cart_table_item cart-empty-row">
+                                            <td colspan="6">Your cart is empty. Add a painting from the shop to begin.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -429,7 +350,7 @@
 
                                                 <tr class="cart-subtotal">
                                                     <th>Cart Subtotal</th>
-                                                    <td><span class="amount"><i class="fa fa-gbp"></i> 375</span></td>
+                                                    <td><span class="amount">$0</span></td>
                                                 </tr>
 
                                                 <tr class="shipping">
@@ -439,7 +360,7 @@
 
                                                 <tr class="total">
                                                     <th>Order Price Total</th>
-                                                    <td><strong><span class="amount"><i class="fa fa-gbp"></i> 375</span></strong></td>
+                                                    <td><strong><span class="amount">$0</span></strong></td>
                                                 </tr>
 
                                             </tbody>
@@ -507,6 +428,8 @@
 	<script type="text/javascript" src="js/jquery.dropdown.js"></script>
 
 	<script src="js/jsplugins.js" type="text/javascript"></script>
+
+	<script src="js/shop-cart.js"></script>
 
 	<script src="js/custom.js"></script>
 
