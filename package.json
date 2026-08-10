@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Vercel function scaffolding for Eterna Espressione checkout, Firebase accounts, and order automation.",
+  "scripts": {
+    "build": "node scripts/vercel-build.js"
+  },
   "dependencies": {
     "firebase-admin": "^12.7.0",
     "stripe": "^17.5.0"

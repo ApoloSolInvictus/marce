@@ -44,6 +44,18 @@ Use real production values in Vercel only. Do not commit secrets to GitHub.
 - `N8N_WEBHOOK_TOKEN`
 - `N8N_ORDER_WEBHOOK_URL`
 
+## Domain Setup
+
+The production domain should be managed in Vercel, not GitHub Pages.
+
+- Remove the GitHub Pages custom-domain `CNAME` file from the repository.
+- In the DNS provider for `wstudio3d.com`, set:
+  - Type: `CNAME`
+  - Name/Host: `marce`
+  - Value/Target: the Vercel-provided DNS target for the project, or Vercel's recommended CNAME target.
+- In Vercel, keep `marce.wstudio3d.com` added to the `marce-alpha` project and verify the domain after DNS propagation.
+- Avoid setting `marce-alpha.vercel.app` to redirect to `marce.wstudio3d.com` until Vercel shows the custom domain as valid.
+
 ## Current API Scaffolding
 
 - `api/create-checkout-session.js` creates a Firestore order and returns a hosted checkout URL.
