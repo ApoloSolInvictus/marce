@@ -42,6 +42,26 @@ The repository includes `vercel.json`:
 
 `cleanUrls` stays `false` because the template links use routes like `shop-cart.html`, `shop-checkout.html`, and `account.html`.
 
+## Domain Routing Checklist
+
+Current deployment notes:
+
+- `marce-alpha.vercel.app` redirects to `https://www.eternaespressione.com`.
+- `https://www.eternaespressione.com` is serving the current site correctly.
+- `marce.wstudio3d.com` DNS points to Vercel, but Vercel returns `DEPLOYMENT_NOT_FOUND` until that exact hostname is attached to the correct Vercel project.
+
+To make `https://marce.wstudio3d.com` work:
+
+1. Open the Vercel project that deploys this GitHub repo.
+2. Go to Settings > Domains.
+3. Add `marce.wstudio3d.com`.
+4. If Vercel says the domain is already assigned elsewhere, remove it from the old Vercel project first.
+5. Keep the DNS CNAME for `marce.wstudio3d.com` pointed to the Vercel target provided by Vercel.
+6. Set the preferred production domain in Vercel:
+   - Use `marce.wstudio3d.com` if that should be the client-facing domain.
+   - Use `www.eternaespressione.com` if that is the final brand domain.
+7. Avoid keeping multiple forced redirects until the final production domain is chosen.
+
 ## Required Vercel Environment Variables
 
 Add these in Vercel under Project Settings > Environment Variables. Add them for Production first, then Preview/Development if needed.
@@ -150,4 +170,3 @@ Supported statuses:
 ## Production Notes
 
 This is ready as a functional prototype. Before accepting real high-value art payments, the next production hardening step is to move final product prices to a trusted server catalog or Stripe Price IDs, so the browser cannot be the source of truth for artwork pricing.
-
