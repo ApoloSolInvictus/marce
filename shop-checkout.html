@@ -319,7 +319,7 @@
                                 <div class="payment-method-card"><i class="fa fa-cc-mastercard"></i>MasterCard</div>
                                 <div class="payment-method-card"><i class="fa fa-cc-visa"></i>Visa</div>
                                 <div class="payment-method-card"><i class="fa fa-cc-discover"></i>Discover</div>
-                                <div class="payment-method-card"><i class="fa fa-cc-paypal"></i>PayPal</div>
+                                <div class="payment-method-card"><i class="fa fa-cc-paypal"></i>PayPal Checkout</div>
                             </div>
                             <div id="order_review">
                                 <table class="shop_table cart">
@@ -375,15 +375,10 @@
                                 <!-- **payment - Starts** -->
                                 <div id="payment">
                                     <ul class="payment_methods methods">
-                                        <li class="payment_method_card">
-                                            <input id="payment_method_card" type="radio" class="input-radio" name="payment_method" value="card" checked='checked' data-order_button_text="Pay securely" />
-                                            <label for="payment_method_card"><span></span>Credit or Debit Card</label>
-                                            <div class="payment_box payment_method_card"><p>American Express, MasterCard, Visa, and Discover should be processed through a secure hosted checkout on Vercel so card details never touch this static page.</p> </div>
-                                        </li>
                                         <li class="payment_method_paypal">
-                                            <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal"  data-order_button_text="Proceed to PayPal" />
+                                            <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal" checked='checked' data-order_button_text="Proceed to PayPal" />
                                             <label for="payment_method_paypal"><span></span>PayPal <img src="images/paypal.png" alt="PayPal" /></label>
-                                            <div class="payment_box payment_method_paypal" style="display:none;"><p>PayPal can be connected as its own checkout option or offered through a supported payment provider.</p> </div>
+                                            <div class="payment_box payment_method_paypal"><p>All payments are completed through PayPal. Customers can pay with PayPal or eligible American Express, MasterCard, Visa, and Discover cards inside PayPal checkout.</p> </div>
                                         </li>
                                     </ul>
 
@@ -391,7 +386,7 @@
 
                                         <noscript>Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.<br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="Update totals" /></noscript>
                                         <input type="hidden" name="_wpnonce" value="127d0e67e3" /><input type="hidden" name="_wp_http_referer" value="" />
-                                        <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Continue to secure payment" data-value="Continue to secure payment" />
+                                        <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Proceed to PayPal" data-value="Proceed to PayPal" />
 
                                     </div>
 

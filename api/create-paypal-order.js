@@ -1,5 +1,5 @@
-const Stripe = require('stripe');
 const { getFirebaseAdmin } = require('./_firebase');
+const { createPayPalOrder } = require('./_paypal');
 
 function normalizeItems(items, fallbackBody) {
   if (Array.isArray(items) && items.length) {
@@ -34,7 +34,6 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     const admin = getFirebaseAdmin();
     const db = admin.firestore();
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
@@ -48,49 +47,36 @@ module.exports = async function handler(req, res) {
       customerEmail: body.email || null,
       customerUid: body.uid || null,
       customer: body.customer || {},
-      paymentMethod: body.paymentMethod || 'card',
+      paymentProvider: 'paypal',
+      paymentMethod: 'paypal',
       status: 'checkout_started',
       progress: 40,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       items,
     });
 
-    const configuredMethods = (process.env.STRIPE_PAYMENT_METHODS || 'card,paypal')
-      .split(',')
-      .map((method) => method.trim())
-      .filter(Boolean);
-    const requestedMethod = body.paymentMethod || 'card';
-    const methods = configuredMethods.includes(requestedMethod) ? [requestedMethod] : configuredMethods;
-
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: methods,
-      customer_email: body.email || undefined,
-      line_items: items.map((item) => ({
-        quantity: item.quantity,
-        price_data: {
-          currency: process.env.SHOP_CURRENCY || 'usd',
-          unit_amount: item.unitAmount,
-          product_data: {
-            name: item.title,
-            images: item.image && /^https?:\/\//.test(item.image) ? [item.image] : undefined,
-          },
-        },
-      })),
-      metadata: {
-        orderId: orderRef.id,
-        customerUid: body.uid || '',
-      },
-      success_url: `${process.env.SITE_URL}/account.html?order=${orderRef.id}&payment=success`,
-      cancel_url: `${process.env.SITE_URL}/shop-checkout.html?payment=cancelled`,
+    const paypalOrder = await createPayPalOrder({
+      orderId: orderRef.id,
+      items,
+      customerEmail: body.email || null,
     });
+    const approvalLink = (paypalOrder.links || []).find((link) => link.rel === 'approve');
+
+    if (!approvalLink || !approvalLink.href) {
+      throw new Error('PayPal did not return an approval URL.');
+    }
 
     await orderRef.update({
-      checkoutSessionId: session.id,
-      checkoutUrl: session.url,
+      paypalOrderId: paypalOrder.id,
+      approvalUrl: approvalLink.href,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    return res.status(200).json({ orderId: orderRef.id, url: session.url });
+    return res.status(200).json({
+      orderId: orderRef.id,
+      paypalOrderId: paypalOrder.id,
+      url: approvalLink.href,
+    });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

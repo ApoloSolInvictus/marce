@@ -215,7 +215,7 @@
         var items = readCart();
         return {
             email: data.get('billing_email') || '',
-            paymentMethod: data.get('payment_method') || 'card',
+            paymentMethod: 'paypal',
             amount: Math.round(cartTotal(items) * 100),
             title: items.length === 1 ? items[0].title : 'Eterna Espressione Artwork Order',
             items: items.map(function (item) {
@@ -282,15 +282,15 @@
                 return;
             }
 
-            setCheckoutStatus('Creating secure checkout...');
-            fetch('/api/create-checkout-session', {
+            setCheckoutStatus('Opening secure PayPal checkout...');
+            fetch('/api/create-paypal-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
                 .then(function (response) {
                     return response.json().then(function (body) {
-                        if (!response.ok) throw new Error(body.error || 'Checkout could not be created.');
+                        if (!response.ok) throw new Error(body.error || 'PayPal checkout could not be created.');
                         return body;
                     });
                 })
@@ -298,7 +298,7 @@
                     if (body.url) {
                         window.location.href = body.url;
                     } else {
-                        setCheckoutStatus('Checkout was created, but no payment URL was returned.', true);
+                        setCheckoutStatus('PayPal checkout was created, but no approval URL was returned.', true);
                     }
                 })
                 .catch(function (error) {

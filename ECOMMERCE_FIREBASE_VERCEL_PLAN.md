@@ -1,6 +1,6 @@
 # Eterna Espressione Ecommerce Plan
 
-This site is currently a static HTML gallery/shop. The next production step is to host it on Vercel and connect secure serverless functions to Firebase, Stripe/PayPal, and n8n.
+This site is currently a static HTML gallery/shop. The next production step is to host it on Vercel and connect secure serverless functions to Firebase, PayPal, and n8n.
 
 ## Recommended Architecture
 
@@ -9,9 +9,7 @@ This site is currently a static HTML gallery/shop. The next production step is t
 - **Customer/order data:** Cloud Firestore collections:
   - `customers/{uid}`
   - `orders/{orderId}`
-- **Payments:** hosted checkout, not raw card fields inside the page.
-  - Cards: American Express, MasterCard, Visa, Discover through Stripe Checkout or another certified gateway.
-  - PayPal: PayPal Checkout directly, or through a gateway that supports PayPal in the merchant account.
+- **Payments:** PayPal hosted checkout only. The site can display American Express, MasterCard, Visa, and Discover logos as accepted through PayPal, but card data must stay inside PayPal checkout.
 - **Backend:** Vercel Functions in `/api`.
 - **Automation:** n8n receives payment/order events and calls `/api/order-status-webhook` to update the order.
 - **Email notices:** Firebase Trigger Email extension, SendGrid, Resend, Mailgun, or an n8n email workflow.
@@ -35,9 +33,10 @@ Use real production values in Vercel only. Do not commit secrets to GitHub.
 
 - `SITE_URL`
 - `SHOP_CURRENCY`
-- `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `STRIPE_PAYMENT_METHODS`
+- `PAYPAL_ENVIRONMENT`
+- `PAYPAL_CLIENT_ID`
+- `PAYPAL_CLIENT_SECRET`
+- `PAYPAL_MERCHANT_EMAIL`
 - `FIREBASE_PROJECT_ID`
 - `FIREBASE_CLIENT_EMAIL`
 - `FIREBASE_PRIVATE_KEY`
@@ -58,8 +57,8 @@ The production domain should be managed in Vercel, not GitHub Pages.
 
 ## Current API Scaffolding
 
-- `api/create-checkout-session.js` creates a Firestore order and returns a hosted checkout URL.
-- `api/stripe-webhook.js` receives payment confirmation and updates the order to `paid`.
+- `api/create-paypal-order.js` creates a Firestore order and returns a PayPal approval URL.
+- `api/capture-paypal-order.js` captures PayPal approval, updates the order to `paid`, and can notify n8n.
 - `api/order-status-webhook.js` lets n8n or the owner update Firestore order progress securely.
 - `api/_firebase.js` initializes Firebase Admin on Vercel.
 
