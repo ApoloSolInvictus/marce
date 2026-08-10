@@ -1,0 +1,22 @@
+{
+  "name": "Eterna Espressione",
+  "short_name": "Eterna",
+  "description": "Eterna Espressione is Marcello Castagna's contemporary art gallery.",
+  "icons": [
+    {
+      "src": "images/brand/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#050505",
+  "background_color": "#050505",
+  "display": "standalone"
+}
