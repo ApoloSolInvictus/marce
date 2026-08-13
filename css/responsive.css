@@ -16,7 +16,7 @@
 	
 	.logo { margin: 0; width: auto; max-width: 270px; }
 	.logo a img { max-height: 58px; width: auto; }
-	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
+	.slider-container { aspect-ratio: 1600 / 1108; height: auto; min-height: 0; max-height: none; }
 	.hero-gallery-logo { width: clamp(300px, 56vw, 680px); }
 	.header-animate .logo { padding: 12px 0;}
 	.header-animate #main-menu ul li { padding: 14px 0; }		
@@ -205,7 +205,7 @@
 	
 	.logo { margin: 0; width: auto; max-width: 240px; }
 	.logo a img { max-height: 52px; width: auto; }
-	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
+	.slider-container { aspect-ratio: 1600 / 1108; height: auto; min-height: 0; max-height: none; }
 	.hero-gallery-logo { width: min(72vw, 560px); }
 	.header-animate .logo { padding: 12px 0;}
 	.header-animate #main-menu ul li { padding: 12px 0; }		
@@ -461,7 +461,7 @@
 		
 	.logo { width: 100%; max-width: 100%; text-align:center; padding: 10px 0;}
 	.logo a img { max-height: 62px; width: auto; }
-	.slider-container { aspect-ratio: 1600 / 1128; height: auto; min-height: 0; max-height: none; }
+	.slider-container { aspect-ratio: 1600 / 1108; height: auto; min-height: 0; max-height: none; }
 	.hero-gallery-logo { max-width: calc(100% - 24px); width: 82vw; }
 	#main-menu { display: inline-block; float: none; padding: 10px 0; width: 100%; position:relative; }
 	

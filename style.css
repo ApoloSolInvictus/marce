@@ -231,7 +231,7 @@
 	.widget.widget_categories ul li, .widget.widget_archive ul li { padding-left:30px; margin-bottom: 5px; padding-bottom: 5px; line-height:30px; border-bottom:3px double; }
 	.widget.widget_archive ul li { padding-left:25px; }
 	.widget.widget_categories ul li:last-child { border-bottom: 3px double; }
-	.widget.widget_categories ul li:before { content:""; left:5px; }
+	.widget.widget_categories ul li:before { content:"\f0a1"; left:5px; }
 	.widget.widget_categories ul li span, .widget.widget_archive ul li span { position: absolute; right: 0; bottom: 0; width: 25px; height: 25px; border: 3px double; float: left; line-height: 21px; text-align: center; font-size: 14px; }
 	.widget.widget_categories ul li:hover, .widget.widget_archive ul li:hover { border-bottom: 3px double;}
 	.widget.widget_categories ul li a { display:block; }
@@ -280,7 +280,7 @@
 	.widget.widget_recent_entries ul li span.post-date:before { content: "\f073"; font-family:FontAwesome; margin-right:7px; }
 
 	.widget.widget_recent_comments ul li:before { content:"\f0e6"; }
-	.widget.widget_archive ul li:before { content:""; }
+	.widget.widget_archive ul li:before { content:"\f0c1"; }
 	.widget.widget_ratings-widget ul li:before { content:"\f006"; }
 	.widget.widget_sensei_lesson_component ul li:before { content:"\f02d"; }
 	.widget.widget_meta ul li:before { content:"\f044"; }
@@ -624,7 +624,7 @@
 
 	#main { float: left; margin: 0; position: relative; width: 100%; }
 
-	.slider-container { aspect-ratio: 1600 / 1128; backface-visibility: hidden; background: #050505; display: block; float: left; height: auto; margin: 0 0 20px; max-height: none; min-height: 0; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
+	.slider-container { aspect-ratio: 1600 / 1108; backface-visibility: hidden; background: #050505; display: block; float: left; height: auto; margin: 0 0 20px; max-height: none; min-height: 0; overflow: hidden; position: relative; vertical-align: middle; width: 100%;}
 	.slider { aspect-ratio: inherit; background-color: #050505; background-image:url(images/paintings/29.jpeg); background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; backface-visibility: hidden; display: block; float: left; height: auto; overflow: hidden; position: relative; width: 100%; }
 	.slider-container .container { position: static; }
 	.slider-container .parallax { position: relative; }
@@ -944,6 +944,11 @@
 	.artist-photo { border: 8px solid #1c1c1c; box-sizing: border-box; display: block; height: auto; max-width: 100%; }
 	.artist-quote { font-size: 24px; line-height: 1.4; margin-top: 10px; }
 	.artist-quote span { display: block; }
+	.artist-story { border-top: 1px solid #2b2b2b; clear: both; float: left; padding: 45px 0 10px; width: 100%; }
+	.artist-story h3 { font-size: 38px; margin-bottom: 8px; text-transform: uppercase; }
+	.artist-story h5 { color: #ffffff; font-size: 20px; margin-bottom: 10px; }
+	.artist-story p { color: #cfcfcf; font-size: 17px; line-height: 1.8; margin-bottom: 16px; max-width: 980px; }
+	.artist-story .artist-story-subtitle { color: #ffffff; font-family: 'Josefin Sans', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
 
 	.account-dashboard { float: left; width: 100%; }
 	.account-panel { border: 1px solid #2b2b2b; box-sizing: border-box; float: left; margin-bottom: 30px; padding: 30px; width: 100%; }
@@ -1146,8 +1151,8 @@
 
 	.shop-dropdown { position: relative;	width: 100%; margin: 0 auto;	display: block;}
 	.shop-dropdown > span { width: 100%; height: 60px; line-height: 60px; font-weight: 700; font-size: 16px; display: block;	padding: 0 50px 0 30px;	position: relative;	cursor: pointer;}
-	.shop-dropdown > span::after { border-left: 1px solid; bottom: 0; content: ""; font-family: fontawesome; font-size: 12px; line-height: 40px; padding: 10px; position: absolute; right: 0; text-align: center; top: 0; width: 50px;}
-	.shop-dropdown.active > span:after {	content: '';}
+	.shop-dropdown > span::after { border-left: 1px solid; bottom: 0; content: "\f078"; font-family: fontawesome; font-size: 12px; line-height: 40px; padding: 10px; position: absolute; right: 0; text-align: center; top: 0; width: 50px;}
+	.shop-dropdown.active > span:after {	content: '\f077';}
 	.shop-dropdown ul li { display: block;}
 	.shop-dropdown ul li span { width: 100%; line-height: 60px; padding: 0 30px 0 75px; display: block; cursor: pointer; font-weight: 700;}
 	.shop-dropdown > span, .shop-dropdown ul li span { -webkit-backface-visibility: hidden; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none;	-moz-user-select: none;	-ms-user-select: none; user-select: none;}
@@ -1217,7 +1222,7 @@
 	.project-details ul.client-details li p { margin-bottom: 0;}
 	.project-details ul.client-details li span { float: left; font-weight: 500; font-size: 14px; width: 35%;}
 	.project-details ul.client-details li p i { font-size: 14px; margin-right: 10px;}
-	.client-details li p a::before { content: ""; display: inline-block; font-family: fontawesome; font-size: 14px; font-weight: 700; margin: 0 15px 0 0;}
+	.client-details li p a::before { content: "\f043"; display: inline-block; font-family: fontawesome; font-size: 14px; font-weight: 700; margin: 0 15px 0 0;}
 	.client-details .tagcloud { display: inline-block; width:65%;}
 	.client-details .tagcloud a { float: left; font-size: 14px; font-weight: 400; margin: 0 1px 15px 0; padding: 7px 10px; position: relative;}
 	.tagcloud a:nth-last-of-type(3n-1), .tagcloud a:nth-last-of-type(3n+1) { margin-bottom: 0;}
