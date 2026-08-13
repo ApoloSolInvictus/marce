@@ -459,8 +459,12 @@
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
                 includedLanguages: 'en,es,it,fr,de,pt,zh-CN,ja,ko,ar,hi,ru',
+                layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
                 autoDisplay: false
             }, 'google_translate_element');
+            if(window.eternaApplySavedTranslation) {
+                window.setTimeout(window.eternaApplySavedTranslation, 250);
+            }
         }
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
