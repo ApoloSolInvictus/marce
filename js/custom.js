@@ -78,6 +78,110 @@ jQuery(document).ready(function($){
 			}
 		});
 	})();
+
+	(function(){
+		if($('.site-music-player').length) return;
+
+		var storageKey = 'eternaMusicPlayer';
+		var source = 'audio/velvet-arpeggios.mp3';
+		var saved = {};
+		var wantsPlayback = true;
+		var lastSave = 0;
+
+		try {
+			saved = JSON.parse(window.localStorage.getItem(storageKey) || '{}');
+			if(saved && saved.isPlaying === false) {
+				wantsPlayback = false;
+			}
+		} catch(error) {
+			saved = {};
+		}
+
+		var $player = $('<div class="site-music-player" aria-label="Gallery music player"><audio preload="auto" loop></audio><button class="site-music-toggle" type="button" aria-label="Play music"><i class="fa fa-play" aria-hidden="true"></i></button></div>');
+		var audio = $player.find('audio').get(0);
+		var $button = $player.find('.site-music-toggle');
+		var $icon = $button.find('i');
+
+		audio.src = source;
+		audio.volume = 0.45;
+		$('body').append($player);
+
+		function saveState(force) {
+			var now = Date.now();
+			if(!force && now - lastSave < 1000) return;
+			lastSave = now;
+
+			try {
+				window.localStorage.setItem(storageKey, JSON.stringify({
+					currentTime: audio.currentTime || 0,
+					isPlaying: wantsPlayback,
+					updatedAt: now
+				}));
+			} catch(error) {}
+		}
+
+		function setButtonState(isPlaying) {
+			$player.toggleClass('is-playing', isPlaying);
+			$icon.attr('class', isPlaying ? 'fa fa-pause' : 'fa fa-play');
+			$button.attr('aria-label', isPlaying ? 'Pause music' : 'Play music');
+		}
+
+		function restoreTime() {
+			if(saved && typeof saved.currentTime === 'number' && isFinite(saved.currentTime) && saved.currentTime > 0) {
+				try {
+					audio.currentTime = saved.currentTime;
+				} catch(error) {}
+			}
+		}
+
+		function playAudio() {
+			wantsPlayback = true;
+			var promise = audio.play();
+			if(promise && typeof promise.then === 'function') {
+				promise.then(function(){
+					setButtonState(true);
+					saveState(true);
+				}).catch(function(){
+					setButtonState(false);
+					saveState(true);
+				});
+			}
+		}
+
+		function pauseAudio() {
+			wantsPlayback = false;
+			audio.pause();
+			setButtonState(false);
+			saveState(true);
+		}
+
+		$button.on('click', function(event){
+			event.preventDefault();
+			if(audio.paused) {
+				playAudio();
+			} else {
+				pauseAudio();
+			}
+		});
+
+		$(document).one('click touchstart keydown', function(){
+			if(wantsPlayback && audio.paused) {
+				playAudio();
+			}
+		});
+
+		audio.addEventListener('loadedmetadata', restoreTime);
+		audio.addEventListener('play', function(){ setButtonState(true); saveState(true); });
+		audio.addEventListener('pause', function(){ setButtonState(false); saveState(true); });
+		audio.addEventListener('timeupdate', function(){ saveState(false); });
+		window.addEventListener('beforeunload', function(){ saveState(true); });
+
+		restoreTime();
+		setButtonState(false);
+		if(wantsPlayback) {
+			playAudio();
+		}
+	})();
 	
 		Pace.on("done", function(){
 			$(".loader-wrapper").fadeOut(500);

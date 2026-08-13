@@ -6,6 +6,7 @@ const output = path.join(root, 'public');
 
 const entries = [
   'contents',
+  'audio',
   'css',
   'dark',
   'fonts',
