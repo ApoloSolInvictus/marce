@@ -3,14 +3,8 @@
 
     var CART_KEY = 'eternaEspressioneCart';
     var currency = 'USD';
-    var SHOP_PAINTING_COUNT = 40;
-    var artworkDescriptions = [
-        'Original abstract artwork by Marcello Castagna.',
-        'A layered study in gesture, color, and presence.',
-        'A collectible abstract work from Eterna Espressione.',
-        'Painted texture and atmosphere for a focused interior.',
-        'A luminous original with strong visual rhythm.'
-    ];
+    var paintings = Array.isArray(window.ETERNA_PAINTINGS) ? window.ETERNA_PAINTINGS : [];
+    var SHOP_PAINTING_COUNT = paintings.length || 40;
 
     function readCart() {
         try {
@@ -33,10 +27,6 @@
         }).format(value || 0);
     }
 
-    function priceForPainting(number) {
-        return 900 + ((Number(number || 1) * 137) % 850);
-    }
-
     function padPainting(number) {
         return String(Number(number || 1)).padStart(2, '0');
     }
@@ -52,13 +42,18 @@
     function paintingProduct(number) {
         var clean = clampPainting(number);
         var padded = padPainting(clean);
+        var configured = paintings.find(function (painting) {
+            return Number(painting.number) === clean;
+        }) || {};
+
         return {
             id: 'painting-' + padded,
             number: clean,
-            title: 'Marcello Castagna Painting ' + padded,
-            image: 'images/paintings/' + clean + '.jpeg',
-            price: priceForPainting(clean),
-            description: artworkDescriptions[(clean - 1) % artworkDescriptions.length]
+            title: configured.title || ('Marcello Castagna Painting ' + padded),
+            image: configured.image || ('images/paintings/' + clean + '.jpeg'),
+            price: Number(configured.price || 0),
+            description: configured.description || ('Description for painting ' + clean + '.'),
+            extraImages: Array.isArray(configured.extraImages) ? configured.extraImages : []
         };
     }
 
@@ -137,6 +132,36 @@
                     window.location.href = 'shop-cart.html';
                 }, 450);
             });
+        });
+    }
+
+    function renderShopProducts() {
+        var products = document.querySelectorAll('.products .product-wrapper');
+        Array.prototype.forEach.call(products, function (card) {
+            var number = card.getAttribute('data-painting-number');
+            if (!number) return;
+
+            var product = paintingProduct(number);
+            var detailHref = detailUrl(product.number);
+            var image = card.querySelector('.product-thumb img');
+            var imageLink = card.querySelector('.product-container > a');
+            var optionLink = card.querySelector('.product-title a:last-of-type');
+            var titleLink = card.querySelector('.product-details h5 a');
+            var price = card.querySelector('.product-details .amount');
+            var description = card.querySelector('.product-title p');
+
+            if (image) {
+                image.setAttribute('src', product.image);
+                image.setAttribute('alt', product.title + ' by Marcello Castagna');
+            }
+            if (imageLink) imageLink.setAttribute('href', detailHref);
+            if (optionLink) optionLink.setAttribute('href', detailHref);
+            if (titleLink) {
+                titleLink.setAttribute('href', detailHref);
+                titleLink.textContent = product.title;
+            }
+            if (price) price.textContent = money(product.price);
+            if (description) description.textContent = product.description;
         });
     }
 
@@ -253,13 +278,23 @@
         if (!list) return;
 
         var items = [];
+        var product = paintingProduct(number);
+
+        if (product.extraImages.length) {
+            items = product.extraImages.map(function (image, index) {
+                return '<li><a href="' + safeText(image) + '" class="product">' +
+                    '<img src="' + safeText(image) + '" alt="' + safeText(product.title + ' detail ' + (index + 1)) + '" title="' + safeText(product.title + ' detail ' + (index + 1)) + '" onerror="this.closest(&quot;li&quot;).style.display=&quot;none&quot;">' +
+                    '</a></li>';
+            });
+        }
+
         for (var offset = -3; offset <= 3; offset += 1) {
             if (offset === 0) continue;
             var thumbNumber = clampPainting(number + offset);
-            var product = paintingProduct(thumbNumber);
+            var related = paintingProduct(thumbNumber);
             items.push(
                 '<li><a href="' + safeText(detailUrl(thumbNumber)) + '" class="product">' +
-                '<img src="' + safeText(product.image) + '" alt="' + safeText(product.title) + '" title="' + safeText(product.title) + '">' +
+                '<img src="' + safeText(related.image) + '" alt="' + safeText(related.title) + '" title="' + safeText(related.title) + '">' +
                 '</a></li>'
             );
         }
@@ -440,6 +475,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         updateMiniCart();
+        renderShopProducts();
         renderShopDetail();
         bindShopButtons();
         bindCartActions();
