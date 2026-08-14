@@ -1005,6 +1005,8 @@
 		.artist-origin-copy p { font-size: 17px; line-height: 1.65; }
 		.site-music-player { bottom: 72px; right: 12px; }
 		.site-music-toggle { height: 42px; width: 42px; }
+		.shop-detail-view .thumblist { margin-bottom: 32px; }
+		.shop-detail-view .thumblist > li.detail-extra-image img { max-height: none; }
 		.account-order-summary { align-items: flex-start; flex-direction: column; }
 		.account-order-summary img { height: auto; width: 100%; }
 		.payment-method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1204,6 +1206,9 @@
 	.thumblist > li { display: inline-block; float: left; margin: 0 22px 0 0; padding: 0;}
 	.thumblist > li:last-child { margin: 0;}
 	.thumblist a { display: block; float: left;}
+	.shop-detail-view .thumblist > li.detail-extra-image { display: block; float: none; margin: 0; width: 100%;}
+	.shop-detail-view .thumblist > li.detail-extra-image a { width: 100%;}
+	.shop-detail-view .thumblist > li.detail-extra-image img { display: block; height: auto; max-height: 560px; object-fit: contain; width: 100%;}
 	.cart-wrapper ul.commentlist li { margin: 0;}
 
 	/* Rating Star */

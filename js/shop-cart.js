@@ -277,29 +277,23 @@
         var list = document.querySelector('[data-detail-thumbs]');
         if (!list) return;
 
-        var items = [];
+        var heading = document.querySelector('[data-detail-extra-heading]');
         var product = paintingProduct(number);
+        var firstExtraImage = product.extraImages[0];
 
-        if (product.extraImages.length) {
-            items = product.extraImages.map(function (image, index) {
-                return '<li><a href="' + safeText(image) + '" class="product">' +
-                    '<img src="' + safeText(image) + '" alt="' + safeText(product.title + ' detail ' + (index + 1)) + '" title="' + safeText(product.title + ' detail ' + (index + 1)) + '" onerror="this.closest(&quot;li&quot;).style.display=&quot;none&quot;">' +
-                    '</a></li>';
-            });
+        if (!firstExtraImage) {
+            list.innerHTML = '';
+            list.style.display = 'none';
+            if (heading) heading.style.display = 'none';
+            return;
         }
 
-        for (var offset = -3; offset <= 3; offset += 1) {
-            if (offset === 0) continue;
-            var thumbNumber = clampPainting(number + offset);
-            var related = paintingProduct(thumbNumber);
-            items.push(
-                '<li><a href="' + safeText(detailUrl(thumbNumber)) + '" class="product">' +
-                '<img src="' + safeText(related.image) + '" alt="' + safeText(related.title) + '" title="' + safeText(related.title) + '">' +
-                '</a></li>'
-            );
-        }
+        list.style.display = '';
+        if (heading) heading.style.display = '';
 
-        list.innerHTML = items.join('');
+        list.innerHTML = '<li class="detail-extra-image"><a href="' + safeText(firstExtraImage) + '" class="product">' +
+            '<img src="' + safeText(firstExtraImage) + '" alt="' + safeText(product.title + ' detail image') + '" title="' + safeText(product.title + ' detail image') + '" onerror="this.closest(&quot;li&quot;).style.display=&quot;none&quot;">' +
+            '</a></li>';
     }
 
     function renderShopDetail() {

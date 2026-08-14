@@ -6,8 +6,7 @@ var ETERNA_PAINTINGS = [
     price: 433,
     description: "Description for painting 1.",
     extraImages: [
-      "images/paintings/details/1-1.jfif",
-      "images/paintings/details/1-2.jpeg"
+      "images/paintings/details/1-1.jfif"
     ]
   },
   {
