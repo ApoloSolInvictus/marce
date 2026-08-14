@@ -1195,6 +1195,11 @@
 	.cart-wrapper { float: left; margin: 0; padding: 0; width: 100%;}
 	.cart-thumb { float: left; margin: 0 0 50px; padding: 0; width: 100%;}
 	.cart-thumb a { display: block; float: left; line-height: 0; margin: 0; padding: 0; width: 100%;}
+	.cart-thumb img[data-detail-image] { max-height: 720px; object-fit: contain; width: 100%; }
+	.shop-artwork-details h4 { font-size: 30px; margin-bottom: 15px; }
+	.shop-detail-price .amount { display: inline-block; font-size: 28px; font-weight: 700; margin: 8px 0 20px; }
+	.shop-detail-add-cart { margin-bottom: 28px; }
+	.shop-detail-pagination { clear: both; float: left; margin-top: 30px; width: 100%; }
 	.thumblist { float: left; margin: 0 0 50px; width: 100%;}
 	.thumblist > li { display: inline-block; float: left; margin: 0 22px 0 0; padding: 0;}
 	.thumblist > li:last-child { margin: 0;}
@@ -1253,14 +1258,14 @@
 	.products li { display:inline; padding:0; }
 	.products .product-wrapper { margin: 0 0 30px; overflow: hidden;}
 	.products .product-container { float: left; margin:0px 0px 27px 0px; overflow: hidden; padding: 0; max-height: 100%; position: relative; width: 100%;}
-	.products .product-thumb { float: left; margin: 0; padding: 0; text-align: center; width: 100%; position:relative; }
+	.products .product-thumb { aspect-ratio: 1 / 1; float: left; margin: 0; overflow: hidden; padding: 0; text-align: center; width: 100%; position:relative; }
 	.products .product-thumb, .products .product-thumb a { line-height:0; }
 
 	.products .product-thumb::after { bottom: 0; right: 0;}
 	.products .product-thumb::after, .products .product-thumb::before { content: ""; height: 0; position: absolute; width: 0;}
 	.product-wrapper:hover .product-container .product-thumb::after, .product-wrapper:hover .product-container .product-thumb::before { height: 100%; width: 100%; }
 	.products .product-thumb::before { left: 0; margin: auto; top: 0; z-index: 1;}
-	.products .product-thumb img { float: left; transform: translateY(0px); -moz-transform: translateY(0px); -webkit-transform: translateY(0px); transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+	.products .product-thumb img { float: left; height: 100%; object-fit: cover; transform: translateY(0px); -moz-transform: translateY(0px); -webkit-transform: translateY(0px); transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); width: 100%;
 	-moz-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);}
 
 	.products .product-wrapper:hover .product-thumb img { transform: translateY(-35px); -moz-transform: translateY(-35px); -webkit-transform: translateY(-35px);}

@@ -3,6 +3,14 @@
 
     var CART_KEY = 'eternaEspressioneCart';
     var currency = 'USD';
+    var SHOP_PAINTING_COUNT = 40;
+    var artworkDescriptions = [
+        'Original abstract artwork by Marcello Castagna.',
+        'A layered study in gesture, color, and presence.',
+        'A collectible abstract work from Eterna Espressione.',
+        'Painted texture and atmosphere for a focused interior.',
+        'A luminous original with strong visual rhythm.'
+    ];
 
     function readCart() {
         try {
@@ -23,6 +31,39 @@
             currency: currency,
             maximumFractionDigits: 0
         }).format(value || 0);
+    }
+
+    function priceForPainting(number) {
+        return 900 + ((Number(number || 1) * 137) % 850);
+    }
+
+    function padPainting(number) {
+        return String(Number(number || 1)).padStart(2, '0');
+    }
+
+    function clampPainting(number) {
+        var parsed = parseInt(number, 10);
+        if (isNaN(parsed)) return 1;
+        if (parsed < 1) return SHOP_PAINTING_COUNT;
+        if (parsed > SHOP_PAINTING_COUNT) return 1;
+        return parsed;
+    }
+
+    function paintingProduct(number) {
+        var clean = clampPainting(number);
+        var padded = padPainting(clean);
+        return {
+            id: 'painting-' + padded,
+            number: clean,
+            title: 'Marcello Castagna Painting ' + padded,
+            image: 'images/paintings/' + clean + '.jpeg',
+            price: priceForPainting(clean),
+            description: artworkDescriptions[(clean - 1) % artworkDescriptions.length]
+        };
+    }
+
+    function detailUrl(number) {
+        return 'shop-detail.html?painting=' + clampPainting(number);
     }
 
     function numberFromText(text) {
@@ -66,10 +107,12 @@
         var title = card.querySelector('.product-details h5 a');
         var amount = card.querySelector('.product-details .amount');
         var src = img ? img.getAttribute('src') : '';
-        var id = src || (title ? title.textContent.trim() : 'artwork');
+        var number = card.getAttribute('data-painting-number') || (src.match(/paintings\/(\d+)\.jpeg/) || [])[1] || '';
+        var id = number ? 'painting-' + padPainting(number) : (src || (title ? title.textContent.trim() : 'artwork'));
 
         return {
             id: id,
+            number: number ? Number(number) : undefined,
             title: title ? title.textContent.trim() : 'Marcello Castagna Artwork',
             image: src,
             price: numberFromText(amount ? amount.textContent : '0')
@@ -124,10 +167,11 @@
         tbody.innerHTML = items.map(function (item) {
             var quantity = Math.max(1, Number(item.quantity || 1));
             var subtotal = Number(item.price || 0) * quantity;
+            var detailHref = item.number ? detailUrl(item.number) : 'shop-detail.html';
             return [
                 '<tr class="cart_table_item" data-cart-id="' + safeText(item.id) + '">',
-                '<td class="product-thumbnail"><a href="shop-detail.html"><img src="' + safeText(item.image) + '" class="attachment-shop_thumbnail wp-post-image" alt="' + safeText(item.title) + '" /></a></td>',
-                '<td class="product-name"><h6><a href="shop-detail.html">' + safeText(item.title) + '</a></h6></td>',
+                '<td class="product-thumbnail"><a href="' + safeText(detailHref) + '"><img src="' + safeText(item.image) + '" class="attachment-shop_thumbnail wp-post-image" alt="' + safeText(item.title) + '" /></a></td>',
+                '<td class="product-name"><h6><a href="' + safeText(detailHref) + '">' + safeText(item.title) + '</a></h6></td>',
                 '<td class="product-price"><span class="amount">' + money(Number(item.price || 0)) + '</span></td>',
                 '<td class="product-quantity"><div class="quantity"><input type="button" class="minus" value="-"/><input type="number" name="quantity" step="1" value="' + quantity + '" min="1" title="Qty" class="input-text qty text" /><input type="button" class="plus" value="+"/></div></td>',
                 '<td class="product-subtotal"><span class="amount">' + money(subtotal) + '</span></td>',
@@ -192,6 +236,78 @@
             writeCart(cart);
             renderCartPages();
         });
+    }
+
+    function selectedPaintingNumber() {
+        var params = new URLSearchParams(window.location.search);
+        return clampPainting(params.get('painting') || 1);
+    }
+
+    function setText(selector, value) {
+        var node = document.querySelector(selector);
+        if (node) node.textContent = value;
+    }
+
+    function renderDetailThumbs(number) {
+        var list = document.querySelector('[data-detail-thumbs]');
+        if (!list) return;
+
+        var items = [];
+        for (var offset = -3; offset <= 3; offset += 1) {
+            if (offset === 0) continue;
+            var thumbNumber = clampPainting(number + offset);
+            var product = paintingProduct(thumbNumber);
+            items.push(
+                '<li><a href="' + safeText(detailUrl(thumbNumber)) + '" class="product">' +
+                '<img src="' + safeText(product.image) + '" alt="' + safeText(product.title) + '" title="' + safeText(product.title) + '">' +
+                '</a></li>'
+            );
+        }
+
+        list.innerHTML = items.join('');
+    }
+
+    function renderShopDetail() {
+        var detail = document.querySelector('[data-shop-detail]');
+        if (!detail) return;
+
+        var number = selectedPaintingNumber();
+        var product = paintingProduct(number);
+        var image = document.querySelector('[data-detail-image]');
+        var lightbox = document.querySelector('[data-detail-lightbox]');
+        var prev = document.querySelector('[data-detail-prev]');
+        var next = document.querySelector('[data-detail-next]');
+        var addButton = document.querySelector('[data-detail-add-cart]');
+
+        if (image) {
+            image.setAttribute('src', product.image);
+            image.setAttribute('alt', product.title);
+            image.setAttribute('title', product.title);
+        }
+        if (lightbox) lightbox.setAttribute('href', product.image);
+        if (prev) prev.setAttribute('href', detailUrl(number - 1));
+        if (next) next.setAttribute('href', detailUrl(number + 1));
+
+        setText('[data-detail-title]', product.title);
+        setText('[data-detail-heading]', product.title);
+        setText('[data-detail-description]', product.description + ' Presented by Eterna Espressione.');
+        setText('[data-detail-price]', money(product.price));
+        setText('[data-detail-number]', 'Painting ' + padPainting(number) + ' of ' + SHOP_PAINTING_COUNT);
+        setText('[data-detail-short]', product.description);
+        renderDetailThumbs(number);
+
+        if (addButton && !addButton.getAttribute('data-detail-bound')) {
+            addButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                addItem(paintingProduct(selectedPaintingNumber()));
+                addButton.classList.add('cart-added');
+                addButton.innerHTML = '<span class="fa fa-check"></span> Added';
+                window.setTimeout(function () {
+                    window.location.href = 'shop-cart.html';
+                }, 450);
+            });
+            addButton.setAttribute('data-detail-bound', 'true');
+        }
     }
 
     function bindCartActions() {
@@ -324,6 +440,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         updateMiniCart();
+        renderShopDetail();
         bindShopButtons();
         bindCartActions();
         bindCheckout();
