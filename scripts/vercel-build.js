@@ -44,6 +44,7 @@ const entries = [
   'typography.html',
 ];
 
+fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output, { recursive: true });
 
 for (const entry of entries) {

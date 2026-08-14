@@ -841,9 +841,6 @@
 	.tweet-content .latest-tweets .tweet_text{ font-size: 15px; line-height: 30px;}
 	.tweet-content .latest-tweets span.tweet_time a{ font-size: 14px; line-height: 20px;}
 	
-	/*----*****---- << Loader >> ----*****----*/
-
-	.loader-title { font-size: 70px; } 	
 
 	/*----*****---- << Blog >> ----*****----*/
 	
@@ -1075,10 +1072,6 @@
 
 	.basket-top .shop-links { top: 170px; z-index: 1; }
 	
-	/*----*****---- << Loader >> ----*****----*/
-		
-	.loader-title::before { background-position: center center; background-size: 65% 65%; top: -210%; }
-	.loader-title { font-size: 34px; } 
 	
 	/*----*****---- << Blog >> ----*****----*/
 	

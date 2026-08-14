@@ -291,11 +291,6 @@ jQuery(document).ready(function($){
 		}
 	})();
 	
-		Pace.on("done", function(){
-			$(".loader-wrapper").fadeOut(500);
-			$(".pace").remove();
-		});
-		
 		/*To Top*/
 		$().UItoTop({ easingType: 'easeOutQuart' });
 		
