@@ -3,10 +3,10 @@ var ETERNA_PAINTINGS = [
     number: 1,
     title: "Marcello Castagna Painting 01",
     image: "images/paintings/1.jpeg",
-    price: 1200,
+    price: 433,
     description: "Description for painting 1.",
     extraImages: [
-      "images/paintings/details/1-1.jpeg",
+      "images/paintings/details/1-1.jfif",
       "images/paintings/details/1-2.jpeg"
     ]
   },
