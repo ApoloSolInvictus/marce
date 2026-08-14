@@ -291,9 +291,25 @@
         list.style.display = '';
         if (heading) heading.style.display = '';
 
-        list.innerHTML = '<li class="detail-extra-image"><a href="' + safeText(firstExtraImage) + '" class="product">' +
+        list.innerHTML = '<li class="detail-extra-image"><a href="' + safeText(firstExtraImage) + '" class="product" data-detail-extra-lightbox data-gal="prettyPhoto[shop-detail]" title="' + safeText(product.title + ' detail image') + '">' +
             '<img src="' + safeText(firstExtraImage) + '" alt="' + safeText(product.title + ' detail image') + '" title="' + safeText(product.title + ' detail image') + '" onerror="this.closest(&quot;li&quot;).style.display=&quot;none&quot;">' +
             '</a></li>';
+    }
+
+    function initDetailLightbox() {
+        if (!window.jQuery || !jQuery.fn || !jQuery.fn.prettyPhoto) return;
+
+        jQuery('a[data-detail-lightbox], a[data-detail-extra-lightbox]')
+            .unbind('click.prettyphoto')
+            .prettyPhoto({
+                hook: 'data-gal',
+                animation_speed: 'normal',
+                theme: 'dark_rounded',
+                slideshow: 3000,
+                autoplay_slideshow: false,
+                social_tools: false,
+                deeplinking: false
+            });
     }
 
     function renderShopDetail() {
@@ -313,7 +329,11 @@
             image.setAttribute('alt', product.title);
             image.setAttribute('title', product.title);
         }
-        if (lightbox) lightbox.setAttribute('href', product.image);
+        if (lightbox) {
+            lightbox.setAttribute('href', product.image);
+            lightbox.setAttribute('title', product.title);
+            lightbox.setAttribute('data-gal', 'prettyPhoto[shop-detail]');
+        }
         if (prev) prev.setAttribute('href', detailUrl(number - 1));
         if (next) next.setAttribute('href', detailUrl(number + 1));
 
@@ -324,6 +344,7 @@
         setText('[data-detail-number]', 'Painting ' + padPainting(number) + ' of ' + SHOP_PAINTING_COUNT);
         setText('[data-detail-short]', product.description);
         renderDetailThumbs(number);
+        initDetailLightbox();
 
         if (addButton && !addButton.getAttribute('data-detail-bound')) {
             addButton.addEventListener('click', function (event) {
