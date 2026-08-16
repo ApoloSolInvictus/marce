@@ -191,28 +191,51 @@ jQuery(document).ready(function($){
 		if($('.site-music-player').length) return;
 
 		var storageKey = 'eternaMusicPlayer';
-		var source = 'audio/velvet-arpeggios.mp3';
+		var tracks = [
+			{ title: 'Eterna Espressione', source: 'audio/velvet-arpeggios.mp3' },
+			{ title: 'Solie Comunicare', source: 'audio/solie-comunicare.mp3' },
+			{ title: 'Linguaccio Eterno', source: 'audio/linguaccio-eterno.mp3' },
+			{ title: 'Sguardo Nel Cuore', source: 'audio/sguardo-nel-cuore.mp3' }
+		];
 		var saved = {};
 		var wantsPlayback = true;
 		var lastSave = 0;
+		var currentTrack = 0;
 
 		try {
 			saved = JSON.parse(window.localStorage.getItem(storageKey) || '{}');
 			if(saved && saved.isPlaying === false) {
 				wantsPlayback = false;
 			}
+			if(saved && typeof saved.trackIndex === 'number' && saved.trackIndex >= 0 && saved.trackIndex < tracks.length) {
+				currentTrack = saved.trackIndex;
+			}
 		} catch(error) {
 			saved = {};
 		}
 
-		var $player = $('<div class="site-music-player" aria-label="Gallery music player"><audio preload="auto" loop></audio><button class="site-music-toggle" type="button" aria-label="Play music"><i class="fa fa-play" aria-hidden="true"></i></button></div>');
+		var $player = $('<div class="site-music-player" aria-label="Gallery music player"><audio preload="auto"></audio><button class="site-music-toggle" type="button" aria-label="Play music"><i class="fa fa-play" aria-hidden="true"></i></button><button class="site-music-track" type="button" aria-label="Next song"><span class="site-music-title"></span></button></div>');
 		var audio = $player.find('audio').get(0);
 		var $button = $player.find('.site-music-toggle');
 		var $icon = $button.find('i');
+		var $trackButton = $player.find('.site-music-track');
+		var $trackTitle = $player.find('.site-music-title');
 
-		audio.src = source;
 		audio.volume = 0.45;
 		$('body').append($player);
+
+		function setTrack(index, resetTime) {
+			currentTrack = (index + tracks.length) % tracks.length;
+			audio.src = tracks[currentTrack].source;
+			$trackTitle.text(tracks[currentTrack].title);
+			$trackButton.attr('aria-label', 'Next song. Current song: ' + tracks[currentTrack].title);
+
+			if(resetTime) {
+				try {
+					audio.currentTime = 0;
+				} catch(error) {}
+			}
+		}
 
 		function saveState(force) {
 			var now = Date.now();
@@ -222,6 +245,7 @@ jQuery(document).ready(function($){
 			try {
 				window.localStorage.setItem(storageKey, JSON.stringify({
 					currentTime: audio.currentTime || 0,
+					trackIndex: currentTrack,
 					isPlaying: wantsPlayback,
 					updatedAt: now
 				}));
@@ -235,7 +259,7 @@ jQuery(document).ready(function($){
 		}
 
 		function restoreTime() {
-			if(saved && typeof saved.currentTime === 'number' && isFinite(saved.currentTime) && saved.currentTime > 0) {
+			if(saved && saved.trackIndex === currentTrack && typeof saved.currentTime === 'number' && isFinite(saved.currentTime) && saved.currentTime > 0) {
 				try {
 					audio.currentTime = saved.currentTime;
 				} catch(error) {}
@@ -263,6 +287,16 @@ jQuery(document).ready(function($){
 			saveState(true);
 		}
 
+		function nextTrack(keepPlaying) {
+			var shouldPlay = keepPlaying || !audio.paused;
+			setTrack(currentTrack + 1, true);
+			saveState(true);
+
+			if(shouldPlay) {
+				playAudio();
+			}
+		}
+
 		$button.on('click', function(event){
 			event.preventDefault();
 			if(audio.paused) {
@@ -270,6 +304,11 @@ jQuery(document).ready(function($){
 			} else {
 				pauseAudio();
 			}
+		});
+
+		$trackButton.on('click', function(event){
+			event.preventDefault();
+			nextTrack(false);
 		});
 
 		$(document).one('click touchstart keydown', function(){
@@ -282,8 +321,10 @@ jQuery(document).ready(function($){
 		audio.addEventListener('play', function(){ setButtonState(true); saveState(true); });
 		audio.addEventListener('pause', function(){ setButtonState(false); saveState(true); });
 		audio.addEventListener('timeupdate', function(){ saveState(false); });
+		audio.addEventListener('ended', function(){ nextTrack(true); });
 		window.addEventListener('beforeunload', function(){ saveState(true); });
 
+		setTrack(currentTrack, false);
 		restoreTime();
 		setButtonState(false);
 		if(wantsPlayback) {
