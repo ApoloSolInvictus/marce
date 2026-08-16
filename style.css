@@ -955,6 +955,8 @@
 	.artist-story h5 { color: #ffffff; font-size: 20px; margin-bottom: 10px; }
 	.artist-story p { color: #cfcfcf; font-size: 17px; line-height: 1.8; margin-bottom: 16px; max-width: 980px; }
 	.artist-story .artist-story-subtitle { color: #ffffff; font-family: 'Josefin Sans', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+	.featured-intro-copy { margin: 0 auto 70px; max-width: 980px; text-align: center; }
+	.featured-intro-copy p { color: #cfcfcf; font-size: 20px; line-height: 1.75; margin: 0; }
 
 	.account-dashboard { float: left; width: 100%; }
 	.account-panel { border: 1px solid #2b2b2b; box-sizing: border-box; float: left; margin-bottom: 30px; padding: 30px; width: 100%; }
@@ -1006,6 +1008,8 @@
 		.artist-intro-copy { padding: 25px 0 0; }
 		.artist-intro-copy p { font-size: 20px; line-height: 1.55; }
 		.artist-origin-copy p { font-size: 17px; line-height: 1.65; }
+		.featured-intro-copy { margin-bottom: 45px; }
+		.featured-intro-copy p { font-size: 18px; line-height: 1.65; }
 		.site-music-player { bottom: 72px; max-width: calc(100vw - 24px); right: 12px; }
 		.site-music-toggle { height: 42px; width: 42px; }
 		.site-music-track { font-size: 13px; max-width: 190px; min-height: 42px; padding: 0 12px; }
