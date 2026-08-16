@@ -194,7 +194,7 @@ jQuery(document).ready(function($){
 		var tracks = [
 			{ title: 'Eterna Espressione', source: 'audio/velvet-arpeggios.mp3' },
 			{ title: 'Soli E Comunicare', source: 'audio/solie-comunicare.mp3' },
-			{ title: 'Lingguaccio Eterno', source: 'audio/linguaccio-eterno.mp3' },
+			{ title: 'Linguaggio Eterno', source: 'audio/linguaccio-eterno.mp3' },
 			{ title: 'Sguardo Nel Cuore', source: 'audio/sguardo-nel-cuore.mp3' }
 		];
 		var saved = {};
