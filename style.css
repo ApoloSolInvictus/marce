@@ -1216,6 +1216,10 @@
 	.shop-artwork-details h4 { font-size: 30px; margin-bottom: 15px; }
 	.shop-detail-price .amount { display: inline-block; font-size: 28px; font-weight: 700; margin: 8px 0 20px; }
 	.shop-detail-add-cart { margin-bottom: 28px; }
+	.artwork-status { display: inline-block; font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; line-height: 1; padding: 7px 10px; text-transform: uppercase; }
+	.artwork-status.available { background: #1f8f4d; color: #ffffff; }
+	.artwork-status.sold { background: #a81c51; color: #ffffff; }
+	.shop-action-disabled { cursor: default; opacity: 0.72; pointer-events: none; }
 	.shop-detail-pagination { clear: both; float: left; margin-top: 30px; width: 100%; }
 	.thumblist { float: left; margin: 0 0 50px; width: 100%;}
 	.thumblist > li { display: inline-block; float: left; margin: 0 22px 0 0; padding: 0;}
@@ -1318,6 +1322,8 @@
 	.products .product-details { float:left; width:100%; clear:both; text-align:center; margin-bottom:20px; }
 	.products .product-details h5 {margin-bottom:7px; }
 	.products .product-details span { font-size:18px; font-weight: 700; }
+	.products .product-details .artwork-status { font-size: 11px; margin: 8px 0 6px; }
+	.products .product-details .artwork-meta { color: #cfcfcf; display: block; font-size: 12px; font-weight: 400; line-height: 1.45; padding: 0 8px; text-transform: uppercase; }
 	.products .product-content { float:left; width:100%; }
 
 	.feature-product-carousel .dt-sc-one-fourth { margin:0 11px; }

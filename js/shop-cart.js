@@ -27,6 +27,12 @@
         }).format(value || 0);
     }
 
+    function priceLabel(product) {
+        if (!product.available) return 'Sold';
+        if (Number(product.price || 0) <= 0) return 'Price on request';
+        return money(product.price);
+    }
+
     function padPainting(number) {
         return String(Number(number || 1)).padStart(2, '0');
     }
@@ -49,9 +55,18 @@
         return {
             id: 'painting-' + padded,
             number: clean,
+            code: configured.code || ('AEE' + (100 + clean)),
             title: configured.title || ('Marcello Castagna Painting ' + padded),
+            artist: configured.artist || 'Marcello Castagna',
+            year: configured.year || 'To be confirmed',
+            technique: configured.technique || 'Acrylic',
+            dimensions: configured.dimensions || 'To be confirmed',
+            available: configured.available !== false,
+            status: configured.status || (configured.available === false ? 'Sold' : 'Available'),
+            statusClass: configured.statusClass || (configured.available === false ? 'sold' : 'available'),
             image: configured.image || ('images/paintings/' + clean + '.jpeg'),
             price: Number(configured.price || 0),
+            note: configured.note || 'Unique original artwork',
             description: configured.description || ('Description for painting ' + clean + '.'),
             extraImages: Array.isArray(configured.extraImages) ? configured.extraImages : []
         };
@@ -86,6 +101,8 @@
     }
 
     function addItem(item) {
+        if (!item.available || Number(item.price || 0) <= 0) return false;
+
         var cart = readCart();
         var existing = cart.find(function (cartItem) { return cartItem.id === item.id; });
         if (existing) {
@@ -95,6 +112,11 @@
             cart.push(item);
         }
         writeCart(cart);
+        return true;
+    }
+
+    function buttonLabel(icon, label) {
+        return '<span class="fa ' + icon + '"></span> ' + label;
     }
 
     function productFromCard(card) {
@@ -104,6 +126,8 @@
         var src = img ? img.getAttribute('src') : '';
         var number = card.getAttribute('data-painting-number') || (src.match(/paintings\/(\d+)\.jpeg/) || [])[1] || '';
         var id = number ? 'painting-' + padPainting(number) : (src || (title ? title.textContent.trim() : 'artwork'));
+
+        if (number) return paintingProduct(number);
 
         return {
             id: id,
@@ -126,13 +150,26 @@
 
                 addItem(productFromCard(card));
                 button.classList.add('cart-added');
-                button.innerHTML = '<span class="fa fa-check"></span> Added';
+                button.innerHTML = buttonLabel('fa-check', 'Added');
 
                 window.setTimeout(function () {
                     window.location.href = 'shop-cart.html';
                 }, 450);
             });
         });
+    }
+
+    function ensureProductMeta(card, className) {
+        var details = card.querySelector('.product-details');
+        if (!details) return null;
+
+        var node = details.querySelector('.' + className);
+        if (!node) {
+            node = document.createElement('span');
+            node.className = className;
+            details.appendChild(node);
+        }
+        return node;
     }
 
     function renderShopProducts() {
@@ -149,10 +186,14 @@
             var titleLink = card.querySelector('.product-details h5 a');
             var price = card.querySelector('.product-details .amount');
             var description = card.querySelector('.product-title p');
+            var addButton = card.querySelector('.product-title a:first-of-type');
+            var status = ensureProductMeta(card, 'artwork-status');
+            var meta = ensureProductMeta(card, 'artwork-meta');
 
             if (image) {
                 image.setAttribute('src', product.image);
-                image.setAttribute('alt', product.title + ' by Marcello Castagna');
+                image.setAttribute('alt', product.title + ' by ' + product.artist);
+                image.setAttribute('title', product.title);
             }
             if (imageLink) imageLink.setAttribute('href', detailHref);
             if (optionLink) optionLink.setAttribute('href', detailHref);
@@ -160,8 +201,19 @@
                 titleLink.setAttribute('href', detailHref);
                 titleLink.textContent = product.title;
             }
-            if (price) price.textContent = money(product.price);
+            if (price) price.textContent = priceLabel(product);
             if (description) description.textContent = product.description;
+            if (status) {
+                status.className = 'artwork-status ' + product.statusClass;
+                status.textContent = product.status;
+            }
+            if (meta) meta.textContent = product.code + ' | ' + product.technique + ' | ' + product.dimensions;
+            if (addButton) {
+                var canPurchase = product.available && Number(product.price || 0) > 0;
+                addButton.classList.toggle('shop-action-disabled', !canPurchase);
+                addButton.setAttribute('aria-disabled', canPurchase ? 'false' : 'true');
+                addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', product.available ? 'Inquire' : 'Sold');
+            }
         });
     }
 
@@ -323,6 +375,7 @@
         var prev = document.querySelector('[data-detail-prev]');
         var next = document.querySelector('[data-detail-next]');
         var addButton = document.querySelector('[data-detail-add-cart]');
+        var status = document.querySelector('[data-detail-status]');
 
         if (image) {
             image.setAttribute('src', product.image);
@@ -337,21 +390,40 @@
         if (prev) prev.setAttribute('href', detailUrl(number - 1));
         if (next) next.setAttribute('href', detailUrl(number + 1));
 
+        document.title = product.title + ' - Eterna Espressione';
         setText('[data-detail-title]', product.title);
         setText('[data-detail-heading]', product.title);
         setText('[data-detail-description]', product.description + ' Presented by Eterna Espressione.');
-        setText('[data-detail-price]', money(product.price));
-        setText('[data-detail-number]', 'Painting ' + padPainting(number) + ' of ' + SHOP_PAINTING_COUNT);
+        setText('[data-detail-price]', priceLabel(product));
+        setText('[data-detail-code]', product.code);
+        setText('[data-detail-artist]', product.artist);
+        setText('[data-detail-year]', product.year);
+        setText('[data-detail-technique]', product.technique);
+        setText('[data-detail-dimensions]', product.dimensions);
+        setText('[data-detail-price-inline]', priceLabel(product));
+        setText('[data-detail-note]', product.note);
+        setText('[data-detail-number]', product.code + ' | Painting ' + padPainting(number) + ' of ' + SHOP_PAINTING_COUNT);
         setText('[data-detail-short]', product.description);
+        if (status) {
+            status.className = 'artwork-status ' + product.statusClass;
+            status.textContent = product.status;
+        }
+        if (addButton) {
+            var canPurchase = product.available && Number(product.price || 0) > 0;
+            addButton.classList.toggle('shop-action-disabled', !canPurchase);
+            addButton.setAttribute('aria-disabled', canPurchase ? 'false' : 'true');
+            addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', product.available ? 'Inquire' : 'Sold');
+        }
         renderDetailThumbs(number);
         initDetailLightbox();
 
         if (addButton && !addButton.getAttribute('data-detail-bound')) {
             addButton.addEventListener('click', function (event) {
                 event.preventDefault();
-                addItem(paintingProduct(selectedPaintingNumber()));
+                var selected = paintingProduct(selectedPaintingNumber());
+                if (!addItem(selected)) return;
                 addButton.classList.add('cart-added');
-                addButton.innerHTML = '<span class="fa fa-check"></span> Added';
+                addButton.innerHTML = buttonLabel('fa-check', 'Added');
                 window.setTimeout(function () {
                     window.location.href = 'shop-cart.html';
                 }, 450);
