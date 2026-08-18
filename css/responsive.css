@@ -406,7 +406,8 @@
 	.cart-wrapper .shop-artwork-details ul.client-details li:last-child p { grid-template-columns: 1fr; }
 	.client-details .tagcloud a { float: none; margin: 4px 0 0; }	
 	.auction-hero { grid-template-columns: 1fr; }
-	.auction-artwork, .auction-artwork img { min-height: 360px; }
+	.auction-artwork img { max-height: 560px; min-height: 0; object-fit: contain; }
+	.auction-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.auction-workflow { grid-template-columns: 1fr; }
 	
 	/*----*****---- << Shortcodes Page >> ----*****----*/
@@ -650,11 +651,12 @@
 	.dt-sc-contact-info h3 { margin-left: 4%; }
 	.dt-sc-contact-details { margin: 0 0 0 2%; width: 98%; }
 	.auction-hero, .auction-workflow { grid-template-columns: 1fr; }
-	.auction-artwork, .auction-artwork img { min-height: 300px; }
+	.auction-artwork { padding: 8px; }
+	.auction-artwork img { max-height: 460px; min-height: 0; object-fit: contain; }
 	.auction-panel, .auction-card { padding: 22px; }
 	.auction-panel h2 { font-size: 28px; }
 	.auction-price strong { font-size: 36px; }
-	.auction-facts li { grid-template-columns: 1fr; gap: 3px; }
+	.auction-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	.auction-bids li { align-items: flex-start; flex-direction: column; gap: 4px; }
 	.auction-bids span { white-space: normal; }
 	.newsletter .newsletter-text i { margin: 22px 25px 22px 0; }
@@ -1291,7 +1293,8 @@
 	.auction-panel, .auction-card { padding: 18px; }
 	.auction-panel h2 { font-size: 24px; }
 	.auction-panel p, .auction-card p, .auction-card li { font-size: 14px; }
-	.auction-artwork, .auction-artwork img { min-height: 240px; }
+	.auction-artwork img { max-height: 340px; min-height: 0; object-fit: contain; }
+	.auction-facts { grid-template-columns: 1fr; }
 	
 	/*----*****---- << Shortcodes page >> ----*****----*/
 	
