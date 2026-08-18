@@ -18,6 +18,7 @@ const entries = [
   'video',
   'about.html',
   'account.html',
+  'auction.html',
   'blog-detail-with-lhs.html',
   'blog-detail-with-rhs.html',
   'blog-detail.html',

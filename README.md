@@ -93,6 +93,31 @@ Add these in Vercel under Project Settings > Environment Variables. Add them for
 
 The checkout currently sends the billing/shipping form, customer email, cart items, order status, and progress value to Firestore through the Vercel API.
 
+## Auction Setup
+
+The site includes `auction.html` for the first Eterna Espressione auction.
+
+- Auction artwork: painting #29, code `AEE129`.
+- Starting bid: `$550`.
+- Minimum increment: `$25`.
+- Deadline: `December 20, 2026 at 11:59 PM Costa Rica time`.
+- Vercel API endpoint: `/api/auction-bids`.
+- Firestore collection: `auctions`.
+- Firestore document: `auctions/painting-29`.
+- Firestore bid records: `auctions/painting-29/bids`.
+
+The auction form saves the bidder name, bidder email, bid amount, painting number, and painting code in Firestore. Public bid history only returns the bidder name, amount, and date; emails stay private in Firebase for gallery follow-up.
+
+This feature uses the same Firebase Admin variables listed above:
+
+```text
+FIREBASE_PROJECT_ID
+FIREBASE_CLIENT_EMAIL
+FIREBASE_PRIVATE_KEY
+```
+
+If those variables are missing in Vercel, the page can still show a local preview in the visitor's browser, but real multi-user bidding requires Firebase to be configured.
+
 ## PayPal Setup
 
 1. Create or open the PayPal Business account for the gallery.
