@@ -400,6 +400,10 @@
 	.cart-wrapper .project-details ul.client-details li { padding: 10px; }
 	.cart-wrapper .project-details ul.client-details li span { font-size: 12px; }	
 	.cart-wrapper .project-details .client-details p { font-size: 11px; }
+	.cart-wrapper .shop-artwork-details ul.client-details li { padding: 0; }
+	.cart-wrapper .shop-artwork-details .client-details p { font-size: 14px; grid-template-columns: minmax(96px, 32%) minmax(0, 1fr); padding: 13px 14px; }
+	.cart-wrapper .shop-artwork-details ul.client-details li span { font-size: 14px; width: auto; }
+	.cart-wrapper .shop-artwork-details ul.client-details li:last-child p { grid-template-columns: 1fr; }
 	.client-details .tagcloud a { float: none; margin: 4px 0 0; }	
 	
 	/*----*****---- << Shortcodes Page >> ----*****----*/
@@ -1008,6 +1012,10 @@
 	.cart-wrapper .project-details ul.client-details li { padding: 10px; }
 	.cart-wrapper .project-details .client-details p { font-size: 11px; }
 	.cart-wrapper .project-details ul.client-details li span { font-size: 12px; }
+	.cart-wrapper .shop-artwork-details ul.client-details li { padding: 0; }
+	.cart-wrapper .shop-artwork-details .client-details p { font-size: 14px; grid-template-columns: minmax(96px, 32%) minmax(0, 1fr); padding: 13px 14px; }
+	.cart-wrapper .shop-artwork-details ul.client-details li span { font-size: 14px; width: auto; }
+	.cart-wrapper .shop-artwork-details ul.client-details li:last-child p { grid-template-columns: 1fr; }
 	.client-details .tagcloud { width:100%; margin-top: 10px; }
 	.client-details .tagcloud a { float: none; }	
 		
@@ -1262,6 +1270,11 @@
 	.cart-wrapper .project-details ul.client-details li { padding: 10px 5px; }
 	.cart-wrapper .project-details .client-details p { font-size: 10px; }
 	.cart-wrapper .project-details ul.client-details li span { font-size: 12px; width: 48%; }
+	.cart-wrapper .shop-artwork-details ul.client-details li { padding: 0; }
+	.cart-wrapper .shop-artwork-details .client-details p { display: block; font-size: 14px; line-height: 1.6; padding: 13px 14px; }
+	.cart-wrapper .shop-artwork-details ul.client-details li span { display: block; float: none; font-size: 14px; width: auto; }
+	.cart-wrapper .shop-artwork-details ul.client-details li p > span:first-child { margin-bottom: 3px; }
+	.cart-wrapper .shop-artwork-details .artwork-status { display: inline-block; margin-top: 4px; }
 	.client-details .tagcloud { width:100%; margin-top: 10px; }
 	.client-details .tagcloud a { float: none; }
 	
