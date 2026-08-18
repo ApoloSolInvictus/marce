@@ -833,13 +833,13 @@ jQuery(document).ready(function($){
 		
 		//Contact Map...
 		var $map = $('#contact_map');
-		if( $map.length ) {
+		if( $map.length && !$map.find('iframe').length && $.isFunction($map.gMapResp) ) {
 			$map.gMapResp({
-				address: 'Iamdesigning, 1/52,3/53, Lal Bahadhur Colony,Shringar Nagar Road, Near Gopal Naidu School, Peelamedu, Coimbatore, TN 641004',
+				address: 'Osteria Faina, Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
 				zoom: 16,
 				markers: [{ 
-					  address : 'Iamdesigning, 1/52,3/53, Lal Bahadhur Colony,Shringar Nagar Road, Near Gopal Naidu School, Peelamedu, Coimbatore, TN 641004',
-					  html: 'No: 58 A, East Madison St, Baltimore, MD, USA',
+					  address : 'Osteria Faina, Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
+					  html: 'Osteria Faina - Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
 					  icon: { 
 							image: "js/images/mapicon.png",
 							iconsize: [26, 47],
