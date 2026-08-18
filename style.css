@@ -630,6 +630,11 @@
 	.slider-container .parallax { position: relative; }
 	.hero-painting { display: block; height: auto; object-fit: contain; object-position: center center; position: relative; width: 100%; z-index: 1; }
 	.hero-gallery-logo { height: auto; left: 50%; max-width: calc(100% - 40px); pointer-events: none; position: absolute; top: 50%; transform: translate(-50%, -50%); width: clamp(300px, 50vw, 780px); z-index: 3; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.75)); }
+	.hero-auction-countdown { align-items: center; background: rgba(0, 0, 0, 0.72); border: 1px solid rgba(217, 180, 74, 0.78); bottom: 34px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); box-sizing: border-box; color: #ffffff; display: inline-flex; gap: 10px; left: 50%; max-width: calc(100% - 36px); padding: 9px 14px; position: absolute; text-align: left; transform: translateX(-50%); z-index: 4; }
+	.hero-auction-countdown span { color: #d9b44a; font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; line-height: 1; text-transform: uppercase; }
+	.hero-auction-countdown strong { color: #ffffff; display: block; font-family: 'PT Sans Narrow', sans-serif; font-size: 17px; font-weight: 700; line-height: 1; white-space: nowrap; }
+	.hero-auction-countdown:hover { background: rgba(217, 180, 74, 0.96); color: #050505; }
+	.hero-auction-countdown:hover span, .hero-auction-countdown:hover strong { color: #050505; }
 
 	.is-apple-device .slider-container, .is-apple-device .slider { transform: translateZ(0); }
 
@@ -1365,6 +1370,7 @@
 	.auction-steps ol { margin: 0 0 16px 20px; padding: 0; }
 	.auction-steps li { margin-bottom: 8px; padding-left: 4px; }
 	.auction-note, .auction-status, .auction-countdown { color: #d9b44a; font-weight: 700; }
+	.auction-countdown-primary { background: rgba(217, 180, 74, 0.12); border: 1px solid rgba(217, 180, 74, 0.42); box-sizing: border-box; display: inline-block; margin: 0 0 16px; padding: 10px 14px; }
 	.auction-form .input-text { margin-bottom: 14px; }
 	.auction-form .input-field { box-sizing: border-box; width: 100%; }
 	.auction-form .submit { margin-bottom: 0; }

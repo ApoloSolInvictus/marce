@@ -131,19 +131,22 @@
     }
 
     function tickCountdown() {
-        var node = document.querySelector('[data-auction-countdown]');
-        if (!node) return;
+        var nodes = document.querySelectorAll('[data-auction-countdown]');
+        if (!nodes.length) return;
 
         var remaining = DEADLINE.getTime() - Date.now();
-        if (remaining <= 0) {
-            node.textContent = 'Auction closed';
-            return;
+        var text = 'Auction closed';
+
+        if (remaining > 0) {
+            var days = Math.floor(remaining / 86400000);
+            var hours = Math.floor((remaining % 86400000) / 3600000);
+            var minutes = Math.floor((remaining % 3600000) / 60000);
+            text = days + ' days - ' + hours + ' hours - ' + minutes + ' minutes left';
         }
 
-        var days = Math.floor(remaining / 86400000);
-        var hours = Math.floor((remaining % 86400000) / 3600000);
-        var minutes = Math.floor((remaining % 3600000) / 60000);
-        node.textContent = days + ' days - ' + hours + ' hours - ' + minutes + ' minutes left';
+        Array.prototype.forEach.call(nodes, function (node) {
+            node.textContent = text;
+        });
     }
 
     function loadAuction() {

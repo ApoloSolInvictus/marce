@@ -18,6 +18,7 @@
 	.logo a img { max-height: 58px; width: auto; }
 	.slider-container { aspect-ratio: 1600 / 1108; height: auto; min-height: 0; max-height: none; }
 	.hero-gallery-logo { width: clamp(300px, 56vw, 680px); }
+	.hero-auction-countdown { bottom: 24px; }
 	.header-animate .logo { padding: 12px 0;}
 	.header-animate #main-menu ul li { padding: 14px 0; }		
 	#main-menu a { margin: 0 10px; padding: 10px 0; }
@@ -471,6 +472,9 @@
 	.logo a img { max-height: 62px; width: auto; }
 	.slider-container { aspect-ratio: 1600 / 1108; height: auto; min-height: 0; max-height: none; }
 	.hero-gallery-logo { max-width: calc(100% - 24px); width: 82vw; }
+	.hero-auction-countdown { bottom: 14px; gap: 7px; padding: 8px 10px; }
+	.hero-auction-countdown span { font-size: 10px; }
+	.hero-auction-countdown strong { font-size: 13px; }
 	#main-menu { display: inline-block; float: none; padding: 10px 0; width: 100%; position:relative; }
 	
 	#main-menu { perspective: none; transform: translateY(0px); transition: transform 0.5s ease 0s, visibility 0.5s ease 0s; visibility: visible;}
@@ -1295,6 +1299,8 @@
 	.auction-panel p, .auction-card p, .auction-card li { font-size: 14px; }
 	.auction-artwork img { max-height: 340px; min-height: 0; object-fit: contain; }
 	.auction-facts { grid-template-columns: 1fr; }
+	.hero-auction-countdown { align-items: flex-start; flex-direction: column; gap: 4px; }
+	.hero-auction-countdown strong { white-space: normal; }
 	
 	/*----*****---- << Shortcodes page >> ----*****----*/
 	
