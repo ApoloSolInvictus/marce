@@ -1,6 +1,34 @@
 const { getFirebaseAdmin } = require('./_firebase');
 const { createPayPalOrder } = require('./_paypal');
 
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
+async function verifiedCustomer(admin, body) {
+  if (!body.idToken) {
+    return {
+      uid: body.uid || null,
+      email: normalizeEmail(body.email) || null,
+    };
+  }
+
+  const verified = await admin.auth().verifyIdToken(body.idToken);
+  const verifiedEmail = normalizeEmail(verified.email);
+  const checkoutEmail = normalizeEmail(body.email);
+
+  if (checkoutEmail && verifiedEmail && checkoutEmail !== verifiedEmail) {
+    const error = new Error('The signed-in Google account must match the checkout email address.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return {
+    uid: verified.uid,
+    email: verifiedEmail || checkoutEmail || null,
+  };
+}
+
 function normalizeItems(items, fallbackBody) {
   if (Array.isArray(items) && items.length) {
     return items.map((item) => {
@@ -38,14 +66,15 @@ module.exports = async function handler(req, res) {
     const db = admin.firestore();
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
     const items = normalizeItems(body.items, body);
+    const customer = await verifiedCustomer(admin, body);
 
     if (!items.length) {
       return res.status(400).json({ error: 'At least one cart item is required.' });
     }
 
     const orderRef = await db.collection('orders').add({
-      customerEmail: body.email || null,
-      customerUid: body.uid || null,
+      customerEmail: customer.email,
+      customerUid: customer.uid,
       customer: body.customer || {},
       paymentProvider: 'paypal',
       paymentMethod: 'paypal',
@@ -58,7 +87,7 @@ module.exports = async function handler(req, res) {
     const paypalOrder = await createPayPalOrder({
       orderId: orderRef.id,
       items,
-      customerEmail: body.email || null,
+      customerEmail: customer.email,
     });
     const approvalLink = (paypalOrder.links || []).find((link) => link.rel === 'approve');
 
@@ -78,6 +107,6 @@ module.exports = async function handler(req, res) {
       url: approvalLink.href,
     });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(error.statusCode || 500).json({ error: error.message });
   }
 };

@@ -2,6 +2,7 @@
     'use strict';
 
     var CART_KEY = 'eternaEspressioneCart';
+    var CHECKOUT_EMAIL_KEY = 'eternaEspressioneCheckoutEmail';
     var currency = 'USD';
     var paintings = Array.isArray(window.ETERNA_PAINTINGS) ? window.ETERNA_PAINTINGS : [];
     var SHOP_PAINTING_COUNT = paintings.length || 40;
@@ -85,6 +86,49 @@
         return String(value || '').replace(/[<>&"]/g, function (match) {
             return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[match];
         });
+    }
+
+    function normalizeEmail(email) {
+        if (window.EternaFirebaseAuth) return window.EternaFirebaseAuth.normalizeEmail(email);
+        return String(email || '').trim().toLowerCase();
+    }
+
+    function storeCheckoutEmail(email) {
+        var normalized = normalizeEmail(email);
+        if (!normalized) return;
+
+        try {
+            localStorage.setItem(CHECKOUT_EMAIL_KEY, normalized);
+        } catch (error) {}
+    }
+
+    function readCheckoutEmail() {
+        try {
+            return normalizeEmail(localStorage.getItem(CHECKOUT_EMAIL_KEY) || '');
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function setFieldValue(selector, value, force) {
+        var field = document.querySelector(selector);
+        if (field && value && (force || !field.value)) field.value = value;
+    }
+
+    function prefillCheckoutEmail() {
+        var savedEmail = readCheckoutEmail();
+        if (savedEmail) setFieldValue('#billing_email', savedEmail);
+
+        if (!window.EternaFirebaseAuth) return;
+
+        window.EternaFirebaseAuth.currentUserPayload()
+            .then(function (user) {
+                if (!user || !user.email) return;
+                storeCheckoutEmail(user.email);
+                setFieldValue('#billing_email', user.email);
+                setFieldValue('#username', user.email);
+            })
+            .catch(function () {});
     }
 
     function updateMiniCart(items) {
@@ -447,12 +491,17 @@
         });
     }
 
-    function checkoutPayload() {
+    function checkoutPayload(authUser) {
         var form = document.querySelector('form.checkout');
         var data = form ? new FormData(form) : new FormData();
         var items = readCart();
+        var email = normalizeEmail(data.get('billing_email') || (authUser && authUser.email) || '');
+        if (email) storeCheckoutEmail(email);
+
         return {
-            email: data.get('billing_email') || '',
+            email: email,
+            uid: authUser && authUser.uid ? authUser.uid : null,
+            idToken: authUser && authUser.idToken ? authUser.idToken : null,
             paymentMethod: 'paypal',
             amount: Math.round(cartTotal(items) * 100),
             title: items.length === 1 ? items[0].title : 'Eterna Espressione Artwork Order',
@@ -502,6 +551,34 @@
         var form = document.querySelector('form.checkout');
         if (!form) return;
 
+        var googleLogin = document.querySelector('[data-checkout-google-login]');
+        if (googleLogin) {
+            googleLogin.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (!window.EternaFirebaseAuth) {
+                    setCheckoutStatus('Firebase Auth is not available. Please confirm the Firebase web variables in Vercel.', true);
+                    return;
+                }
+
+                googleLogin.disabled = true;
+                setCheckoutStatus('Opening Google sign-in...');
+                window.EternaFirebaseAuth.signInWithGoogle()
+                    .then(function (result) {
+                        var email = result.user && result.user.email ? result.user.email : '';
+                        storeCheckoutEmail(email);
+                        setFieldValue('#billing_email', email, true);
+                        setFieldValue('#username', email, true);
+                        setCheckoutStatus('Signed in with Google as ' + email + '. Continue to PayPal when ready.');
+                    })
+                    .catch(function (error) {
+                        setCheckoutStatus(error.message || 'Google sign-in could not be completed.', true);
+                    })
+                    .finally(function () {
+                        googleLogin.disabled = false;
+                    });
+            });
+        }
+
         form.addEventListener('submit', function (event) {
             event.preventDefault();
             var submitter = event.submitter;
@@ -510,22 +587,24 @@
                 return;
             }
 
-            var payload = checkoutPayload();
-            if (!payload.items.length) {
-                setCheckoutStatus('Your cart is empty. Please add a painting before checkout.', true);
-                return;
-            }
-            if (!payload.email) {
-                setCheckoutStatus('Please enter an email address before continuing to secure payment.', true);
-                return;
-            }
+            var authPromise = window.EternaFirebaseAuth ? window.EternaFirebaseAuth.currentUserPayload() : Promise.resolve(null);
+            authPromise
+                .then(function (authUser) {
+                    var payload = checkoutPayload(authUser);
+                    if (!payload.items.length) {
+                        throw new Error('Your cart is empty. Please add a painting before checkout.');
+                    }
+                    if (!payload.email) {
+                        throw new Error('Please enter an email address before continuing to secure payment.');
+                    }
 
-            setCheckoutStatus('Opening secure PayPal checkout...');
-            fetch('/api/create-paypal-order', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
+                    setCheckoutStatus('Opening secure PayPal checkout...');
+                    return fetch('/api/create-paypal-order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                })
                 .then(function (response) {
                     return response.json().then(function (body) {
                         if (!response.ok) throw new Error(body.error || 'PayPal checkout could not be created.');
@@ -568,5 +647,6 @@
         bindCartActions();
         bindCheckout();
         renderCartPages();
+        prefillCheckoutEmail();
     });
 }());

@@ -971,8 +971,11 @@
 	.account-panel { border: 1px solid #2b2b2b; box-sizing: border-box; float: left; margin-bottom: 30px; padding: 30px; width: 100%; }
 	.account-panel h4 { margin-bottom: 25px; }
 	.account-status { background: #111; border-left: 4px solid #a81c51; color: #fff; padding: 12px 14px; }
+	.account-status-error { border-left-color: #fb7f88; color: #fb7f88; }
 	.account-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
 	.account-actions .dt-sc-button { border: 0; cursor: pointer; }
+	.google-auth-button .fa { margin-right: 8px; }
+	.auth-busy, .google-auth-button:disabled { cursor: wait; opacity: 0.7; }
 	.cart-empty-row td { color: #cccccc; font-size: 15px; text-align: center; }
 	.cart-added { background-color: #2c3e50; }
 	.checkout-status { color: #cccccc; float: left; margin: 12px 0 0; text-align: left; width: 100%; }
@@ -984,6 +987,12 @@
 	.account-wide-panel { clear: both; }
 	.account-order-summary { align-items: center; display: flex; gap: 25px; }
 	.account-order-summary img { height: 160px; object-fit: cover; width: 220px; }
+	.customer-order-list { clear: both; float: left; margin-top: 25px; width: 100%; }
+	.customer-order-card { align-items: center; border-top: 1px solid #2b2b2b; display: flex; gap: 18px; padding: 18px 0; }
+	.customer-order-card img { height: 95px; object-fit: cover; width: 125px; }
+	.customer-order-card h5 { margin-bottom: 8px; }
+	.customer-order-card p { margin-bottom: 12px; }
+	.checkout-google-login { margin-left: 10px; }
 	.payment-method-grid { display: grid; gap: 12px; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 20px 0 30px; }
 	.payment-method-card { border: 1px solid #2b2b2b; box-sizing: border-box; padding: 18px 10px; text-align: center; text-transform: uppercase; }
 	.payment-method-card .fa { display: block; font-size: 28px; margin-bottom: 8px; }
@@ -1029,6 +1038,9 @@
 		.shop-detail-view .thumblist > li.detail-extra-image img { max-height: none; }
 		.account-order-summary { align-items: flex-start; flex-direction: column; }
 		.account-order-summary img { height: auto; width: 100%; }
+		.customer-order-card { align-items: flex-start; flex-direction: column; }
+		.customer-order-card img { height: auto; width: 100%; }
+		.checkout-google-login { margin: 10px 0 0; }
 		.payment-method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 	}
 

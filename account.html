@@ -125,7 +125,7 @@
                         <div class="dt-sc-one-half column first">
                             <div class="account-panel">
                                 <h4>Sign In</h4>
-                                <p class="account-status" id="account-status">Firebase account access is ready for project credentials.</p>
+                                <p class="account-status" id="account-status">Sign in with email or Google to connect purchases to your customer account.</p>
                                 <form id="customer-login-form" class="customer-auth-form" action="#" method="post">
                                     <p class="input-text">
                                         <input class="input-field" type="email" id="customer-email" name="customer_email" required />
@@ -144,6 +144,8 @@
                                     <div class="account-actions">
                                         <button class="dt-sc-button type1" type="submit" data-auth-action="login">Login</button>
                                         <button class="dt-sc-button type2" type="button" data-auth-action="register">Create Account</button>
+                                        <button class="dt-sc-button type1 google-auth-button" type="button" data-auth-action="google"><i class="fa fa-google"></i> Continue with Google</button>
+                                        <button class="dt-sc-button type2" type="button" data-auth-action="logout" style="display:none;">Sign Out</button>
                                     </div>
                                 </form>
                             </div>
@@ -185,9 +187,12 @@
                             <img src="images/paintings/29.jpeg" alt="Featured Marcello Castagna artwork order">
                             <div>
                                 <h5>Eterna Espressione Original Artwork</h5>
-                                <p>Order status, PayPal payment confirmation, shipping updates, and delivery completion will be saved to the customer profile once Firebase and PayPal are connected.</p>
+                                <p data-account-order-intro>Sign in with the same email used at checkout to see PayPal confirmation, shipping updates, and delivery progress.</p>
                                 <a class="dt-sc-button small type1" href="shop-checkout.html">Continue Checkout<i class="fa fa-angle-right"></i></a>
                             </div>
+                        </div>
+                        <div class="customer-order-list" data-account-orders>
+                            <p>No customer account is signed in yet.</p>
                         </div>
                     </div>
                     <div class="dt-sc-hr-invisible-small"></div>
@@ -225,6 +230,9 @@
 
 
 	<script src="js/custom.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+    <script src="js/firebase-auth.js"></script>
     <script src="js/customer-account.js"></script>
 
     <div class="translate-widget" aria-label="Language selector">

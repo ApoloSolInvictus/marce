@@ -77,6 +77,11 @@ Add these in Vercel under Project Settings > Environment Variables. Add them for
 | `FIREBASE_PROJECT_ID` | Yes | `eterna-espressione` | Firebase project ID. |
 | `FIREBASE_CLIENT_EMAIL` | Yes | `firebase-adminsdk-...@...iam.gserviceaccount.com` | Service account client email. |
 | `FIREBASE_PRIVATE_KEY` | Yes | `-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n` | Paste as one value. Keep the `\n` line breaks escaped if Vercel stores it on one line. |
+| `FIREBASE_WEB_API_KEY` | Yes for customer login | Firebase Web API key | Public Firebase web app key used by browser sign-in. |
+| `FIREBASE_WEB_AUTH_DOMAIN` | Yes for Google login | `eterna-espressione.firebaseapp.com` | Must match an authorized Firebase Auth domain. |
+| `FIREBASE_WEB_APP_ID` | Recommended | Firebase Web App ID | Public Firebase web app identifier. |
+| `FIREBASE_WEB_MESSAGING_SENDER_ID` | Recommended | Firebase sender ID | Public Firebase web app sender ID. |
+| `FIREBASE_WEB_STORAGE_BUCKET` | Optional | `eterna-espressione.appspot.com` | Only needed if Firebase Storage is later used. |
 | `N8N_ORDER_WEBHOOK_URL` | Optional | `https://your-n8n-domain/webhook/order-paid` | Called after PayPal confirms an order as paid. |
 | `N8N_WEBHOOK_TOKEN` | Recommended | long random token | Protects the n8n status webhook and outgoing n8n calls. |
 
@@ -84,12 +89,20 @@ Add these in Vercel under Project Settings > Environment Variables. Add them for
 
 1. Create or select a Firebase project.
 2. Enable Firestore Database.
-3. Enable Firebase Authentication with Email/Password when customer login is ready to go live.
+3. Enable Firebase Authentication providers:
+   - Email/Password for regular customer login and registration.
+   - Google for one-click sign-in with the same email used during checkout.
 4. Create a Firebase service account:
    - Firebase Console > Project Settings > Service Accounts.
    - Generate a new private key.
    - Copy `project_id`, `client_email`, and `private_key` into the Vercel variables above.
 5. Firestore will receive orders in the `orders` collection.
+6. Add the production domains in Firebase Auth > Settings > Authorized domains:
+   - `www.eternaespressione.com`
+   - `marce-alpha.vercel.app`
+   - Any final Vercel/custom domain used by the client.
+
+The browser reads the public Firebase web configuration from `/api/firebase-client-config`. The private Admin credentials stay server-side in Vercel only.
 
 The checkout currently sends the billing/shipping form, customer email, cart items, order status, and progress value to Firestore through the Vercel API.
 
@@ -188,6 +201,9 @@ Supported statuses:
 - Checkout sends the cart to `/api/create-paypal-order`.
 - PayPal redirects the customer to secure hosted payment.
 - After PayPal returns the customer to `account.html`, `/api/capture-paypal-order` captures the payment, updates Firestore, and can notify n8n.
+- Customer Account supports Email/Password login, registration, Google sign-in, and Sign Out through Firebase Auth.
+- Checkout sends the signed-in Firebase UID and token to `/api/create-paypal-order`. If a customer signs in with Google, the Google email must match the checkout email before the order is connected to that account.
+- `account.html` loads recent Firestore orders for the signed-in user by Firebase UID or matching checkout email.
 
 ## Production Notes
 
