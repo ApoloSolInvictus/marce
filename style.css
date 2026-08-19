@@ -1249,6 +1249,7 @@
 	.artwork-status { display: inline-block; font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; line-height: 1; padding: 7px 10px; text-transform: uppercase; }
 	.artwork-status.available { background: #1f8f4d; color: #ffffff; }
 	.artwork-status.sold { background: #a81c51; color: #ffffff; }
+	.artwork-status.auction { background: #d6a000; color: #050505; }
 	.shop-action-disabled { cursor: default; opacity: 0.72; pointer-events: none; }
 	.shop-detail-pagination { clear: both; float: left; margin-top: 30px; width: 100%; }
 	.thumblist { float: left; margin: 0 0 50px; width: 100%;}

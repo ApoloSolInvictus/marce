@@ -29,9 +29,15 @@
     }
 
     function priceLabel(product) {
+        if (product.statusClass === 'auction') return Number(product.price || 0) > 0 ? 'Auction ' + money(product.price) : 'Auction';
         if (!product.available) return 'Sold';
         if (Number(product.price || 0) <= 0) return 'Price on request';
         return money(product.price);
+    }
+
+    function unavailableButtonLabel(product) {
+        if (product.statusClass === 'auction') return 'Auction';
+        return product.available ? 'Inquire' : 'Sold';
     }
 
     function padPainting(number) {
@@ -256,7 +262,7 @@
                 var canPurchase = product.available && Number(product.price || 0) > 0;
                 addButton.classList.toggle('shop-action-disabled', !canPurchase);
                 addButton.setAttribute('aria-disabled', canPurchase ? 'false' : 'true');
-                addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', product.available ? 'Inquire' : 'Sold');
+                addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', unavailableButtonLabel(product));
             }
         });
     }
@@ -456,7 +462,7 @@
             var canPurchase = product.available && Number(product.price || 0) > 0;
             addButton.classList.toggle('shop-action-disabled', !canPurchase);
             addButton.setAttribute('aria-disabled', canPurchase ? 'false' : 'true');
-            addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', product.available ? 'Inquire' : 'Sold');
+            addButton.innerHTML = canPurchase ? buttonLabel('fa-shopping-cart', 'Add to Cart') : buttonLabel('fa-ban', unavailableButtonLabel(product));
         }
         renderDetailThumbs(number);
         initDetailLightbox();
