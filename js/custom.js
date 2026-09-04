@@ -835,11 +835,11 @@ jQuery(document).ready(function($){
 		var $map = $('#contact_map');
 		if( $map.length && !$map.find('iframe').length && $.isFunction($map.gMapResp) ) {
 			$map.gMapResp({
-				address: 'Osteria Faina, Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
+				address: 'Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
 				zoom: 16,
 				markers: [{ 
-					  address : 'Osteria Faina, Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
-					  html: 'Osteria Faina - Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
+					  address : 'Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
+					  html: 'Calle 96, Geroma 2, Casa #40, Rohrmoser, Pavas, San Jose, Costa Rica',
 					  icon: { 
 							image: "js/images/mapicon.png",
 							iconsize: [26, 47],
