@@ -4,9 +4,15 @@
   "private": true,
   "description": "Vercel function scaffolding for Eterna Espressione PayPal checkout, Firebase accounts, and order automation.",
   "scripts": {
-    "build": "node scripts/vercel-build.js"
+    "bundle": "webpack --mode=production",
+    "build": "npm run bundle && node scripts/vercel-build.js"
   },
   "dependencies": {
+    "firebase": "^12.19.0",
     "firebase-admin": "^12.7.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.110.3",
+    "webpack-cli": "^7.2.3"
   }
 }
