@@ -886,3 +886,16 @@ var ETERNA_PAINTINGS = [
     "extraImages": []
   }
 ];
+
+/*
+ * Keep one detail-image slot for every painting. The shop resolves the
+ * available extension at runtime, so files can be uploaded as .jfif,
+ * .jpeg, .jpg, or .png without changing the painting records again.
+ */
+ETERNA_PAINTINGS.forEach(function (painting) {
+  if (!Array.isArray(painting.extraImages) || !painting.extraImages.length) {
+    painting.extraImages = [
+      'images/paintings/details/' + painting.number + '-1.jfif'
+    ];
+  }
+});

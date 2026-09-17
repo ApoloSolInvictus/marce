@@ -222,6 +222,81 @@
         return node;
     }
 
+    function detailImageSources(number, configuredSources) {
+        var base = 'images/paintings/details/' + Number(number) + '-1';
+        var sources = Array.isArray(configuredSources) ? configuredSources.slice() : [];
+        ['.jfif', '.jpeg', '.jpg', '.png'].forEach(function (extension) {
+            var candidate = base + extension;
+            if (sources.indexOf(candidate) === -1) sources.push(candidate);
+        });
+        return sources;
+    }
+
+    function loadImageWithFallback(image, sources, onLoaded, onMissing) {
+        var index = 0;
+
+        function tryNextSource() {
+            if (index >= sources.length) {
+                if (onMissing) onMissing();
+                return;
+            }
+
+            var source = sources[index++];
+            image.onload = function () {
+                if (onLoaded) onLoaded(source);
+            };
+            image.onerror = tryNextSource;
+            image.src = source;
+        }
+
+        tryNextSource();
+    }
+
+    function renderShopExtraImage(card, product, detailHref) {
+        var thumb = card.querySelector('.product-thumb');
+        var primaryImage = thumb ? thumb.querySelector('img') : null;
+        if (!thumb || !primaryImage || !product.extraImages.length) return;
+
+        var primaryFrame = thumb.querySelector('.shop-primary-preview');
+        if (!primaryFrame) {
+            primaryFrame = document.createElement('span');
+            primaryFrame.className = 'shop-primary-preview';
+            primaryImage.parentNode.insertBefore(primaryFrame, primaryImage);
+            primaryFrame.appendChild(primaryImage);
+        }
+
+        var extraPreview = thumb.querySelector('.shop-extra-preview');
+        if (!extraPreview) {
+            extraPreview = document.createElement('span');
+            extraPreview.className = 'shop-extra-preview';
+            thumb.appendChild(extraPreview);
+        }
+
+        extraPreview.innerHTML = '';
+        extraPreview.style.display = 'none';
+        thumb.classList.remove('has-extra-image');
+
+        var extraImage = document.createElement('img');
+        extraImage.alt = product.title + ' detail image';
+        extraImage.title = product.title + ' detail image';
+        extraPreview.appendChild(extraImage);
+
+        loadImageWithFallback(
+            extraImage,
+            detailImageSources(product.number, product.extraImages),
+            function (source) {
+                extraImage.setAttribute('data-detail-source', source);
+                extraPreview.setAttribute('aria-label', 'View ' + product.title + ' detail image');
+                extraPreview.style.display = 'block';
+                thumb.classList.add('has-extra-image');
+            },
+            function () {
+                extraPreview.style.display = 'none';
+                thumb.classList.remove('has-extra-image');
+            }
+        );
+    }
+
     function renderShopProducts() {
         var products = document.querySelectorAll('.products .product-wrapper');
         Array.prototype.forEach.call(products, function (card) {
@@ -239,6 +314,8 @@
             var addButton = card.querySelector('.product-title a:first-of-type');
             var status = ensureProductMeta(card, 'artwork-status');
             var meta = ensureProductMeta(card, 'artwork-meta');
+
+            renderShopExtraImage(card, product, detailHref);
 
             if (image) {
                 image.setAttribute('src', product.image);
@@ -381,9 +458,9 @@
 
         var heading = document.querySelector('[data-detail-extra-heading]');
         var product = paintingProduct(number);
-        var firstExtraImage = product.extraImages[0];
+        var detailSources = detailImageSources(number, product.extraImages);
 
-        if (!firstExtraImage) {
+        if (!detailSources.length) {
             list.innerHTML = '';
             list.style.display = 'none';
             if (heading) heading.style.display = 'none';
@@ -393,9 +470,34 @@
         list.style.display = '';
         if (heading) heading.style.display = '';
 
-        list.innerHTML = '<li class="detail-extra-image"><a href="' + safeText(firstExtraImage) + '" class="product" data-detail-extra-lightbox data-gal="prettyPhoto[shop-detail]" title="' + safeText(product.title + ' detail image') + '">' +
-            '<img src="' + safeText(firstExtraImage) + '" alt="' + safeText(product.title + ' detail image') + '" title="' + safeText(product.title + ' detail image') + '" onerror="this.closest(&quot;li&quot;).style.display=&quot;none&quot;">' +
-            '</a></li>';
+        list.innerHTML = '';
+        var item = document.createElement('li');
+        item.className = 'detail-extra-image';
+
+        var link = document.createElement('a');
+        link.className = 'product';
+        link.setAttribute('data-detail-extra-lightbox', '');
+        link.setAttribute('data-gal', 'prettyPhoto[shop-detail]');
+        link.title = product.title + ' detail image';
+
+        var image = document.createElement('img');
+        image.alt = product.title + ' detail image';
+        image.title = product.title + ' detail image';
+        link.appendChild(image);
+        item.appendChild(link);
+        list.appendChild(item);
+
+        loadImageWithFallback(
+            image,
+            detailSources,
+            function (source) {
+                link.href = source;
+            },
+            function () {
+                item.style.display = 'none';
+                if (heading) heading.style.display = 'none';
+            }
+        );
     }
 
     function initDetailLightbox() {

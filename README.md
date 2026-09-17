@@ -195,6 +195,17 @@ Supported statuses:
 ## Current Shop Behavior
 
 - Shop products are added to a browser cart with `localStorage`.
+
+### Shop Detail Images
+
+Each painting has one optional detail-image slot. The Shop displays the main painting beside that image when the file is available, and the painting detail page opens it in the existing lightbox.
+
+Use this naming convention inside `images/paintings/details/`:
+
+- Painting 1: `1-1.jfif` (already included)
+- Painting N: `N-1.jfif`, `N-1.jpeg`, `N-1.jpg`, or `N-1.png`
+
+The mapping is already prepared in `js/paintings-data.js` for paintings 1 through 52. Uploading a file with the matching number is enough for it to appear in the Shop and its detail page.
 - Cart and Checkout pages render only the real selected products.
 - Products can be removed from both Cart and Checkout.
 - Quantities can be increased or decreased before payment.
